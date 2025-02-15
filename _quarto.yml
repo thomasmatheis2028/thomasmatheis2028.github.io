@@ -1,5 +1,6 @@
 project:
   type: website
+  output-dir: docs
 
 website:
   title: "thomasmatheis2028.github.io"
@@ -19,3 +20,4 @@ format:
 
 editor: visual
 
+ 
