@@ -1,0 +1,8 @@
+---
+title: "Starbucks"
+description: |
+  Analysis of Starbucks data from TidyTuesday
+author: Thomas Matheis
+date: February 15, 2025
+format: html
+---

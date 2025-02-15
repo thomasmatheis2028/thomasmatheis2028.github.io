@@ -1,11 +1,18 @@
 ---
-title: "thomasmatheis2028.github.io"
+title: "Thomas Matheis"
+image: 2028-Matheis_Tommy.jpg
+toc: false
+about: 
+  template: jolla
+  image-shape: round
+  image-width: 17em
+  links:
+    - text: LinkedIn
+      href: https://www.linkedin.com/in/thomas-matheis-41316b322/
+    - text: GitHub
+      href: https://github.com/thomasmatheis2028
+    - text: Email
+      href: mailto:thomasmatheis2024@gmail.com
 ---
 
-This is a Quarto website.
-
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
-
-```{r}
-1 + 1
-```
+Hey! I'm Tommy, a current first year at Pomona College. I love math and data science, and I'm excited to build upon my current knowledge in those fields. Outside of the classroom, I am a diver on Pomona-Pitzer's Swimming & Diving team. My hobbies include listening to indie music, going on long drives, and mountain biking. 
