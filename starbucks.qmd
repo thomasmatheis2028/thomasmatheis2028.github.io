@@ -5,4 +5,28 @@ description: |
 author: Thomas Matheis
 date: February 15, 2025
 format: html
+execute:
+  warning: false
+  message: false
 ---
+
+This is the data set from Starbucks' official 2021 nutritional information. Steamed milk data is omitted from this data set. The vizualization displays the relationship between the amount of sugar in a beverage and its calories. The color is organized by type of milk. It can be seen that drinks with more sugar typically have a higher calorie count.
+
+```{r echo = FALSE}
+library(tidyverse)
+starbucks <- readr::read_csv("starbucks.csv")
+ggplot(starbucks, aes(x = calories, y = sugar_g)) +
+  geom_point(aes(color = milk)) +
+  geom_smooth(color = "red", method = "gam", formula = y ~ s(x, bs = "cs")) +
+  labs(
+    x = "Calories (KCal)",
+    y = "Sugar (g)",
+    title = "Calories vs Sugar in Starbucks Drinks",
+    color = "Type of Milk:\n0 - none\n1 - nonfat\n2 - 2%\n3 - soy\n4 - coconut\n5 - whole"
+  ) + theme_minimal()
+```
+
+The TidyTuesday data can be found at: https://github.com/rfordatascience/tidytuesday/tree/main/data/2021/2021-12-21
+
+The updated nutritional information, from Starbucks, can be found at:
+https://www.starbucks.ie/sites/starbucks-ie-pwa/files/2025-01/Winter%20Beverage%20Nutritionals%20.pdf
