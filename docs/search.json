@@ -1,5 +1,12 @@
 [
   {
+    "objectID": "ufo.html",
+    "href": "ufo.html",
+    "title": "UFO Sightings",
+    "section": "",
+    "text": "This data set consists of over 80,000 documented UFO sightings all over the world. Some variables include country, region, city, time, shape, and length of encounter. This graph compares the number of encounters between each country in the data set, highlighting the stark difference between the amount of sightings in the United States compared to everyone else.\n\n\n\n\n\n\n\n\n\nThe TidyTuesday data can be found at: https://github.com/rfordatascience/tidytuesday/tree/main/data/2019/2019-06-25\nThe original data set, from NUFORC (The National UFO Reporting Center), can be found at: https://nuforc.org/databank/"
+  },
+  {
     "objectID": "about.html",
     "href": "about.html",
     "title": "About",
