@@ -2,6 +2,7 @@
 title: "Thomas Matheis"
 image: 2028-Matheis_Tommy.jpg
 toc: false
+format: html
 about: 
   template: jolla
   image-shape: round

@@ -18,6 +18,6 @@
     "href": "starbucks.html",
     "title": "Starbucks",
     "section": "",
-    "text": "This is the data set from Starbucks’ official 2021 nutritional information. Steamed milk data is omitted from this data set. The vizualization displays the relationship between the amount of sugar in a beverage and its calories. The color is organized by type of milk. It can be seen that drinks with more sugar typically have a higher calorie count.\n\n\n\n\n\n\n\n\n\nThe TidyTuesday data can be found at: https://github.com/rfordatascience/tidytuesday/tree/main/data/2021/2021-12-21\nThe updated nutritional information, from Starbucks, can be found at: https://www.starbucks.ie/sites/starbucks-ie-pwa/files/2025-01/Winter%20Beverage%20Nutritionals%20.pdf"
+    "text": "This is the data set from Starbucks’ official 2021 nutritional information. Steamed milk data is omitted from this data set. The vizualization displays the relationship between the amount of sugar in a beverage and its calories. The color is organized by type of milk. It can be seen that drinks with more sugar typically have a higher calorie count.\n\n\n\n\n\n\n\n\n\nThe TidyTuesday data can be found at: https://github.com/rfordatascience/tidytuesday/tree/main/data/2021/2021-12-21\nThe current nutritional information, from the official Starbucks website, can be found at: https://www.starbucks.ie/sites/starbucks-ie-pwa/files/2025-01/Winter%20Beverage%20Nutritionals%20.pdf"
   }
 ]

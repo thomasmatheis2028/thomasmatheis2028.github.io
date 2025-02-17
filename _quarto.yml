@@ -6,12 +6,14 @@ website:
   title: "Thomas Matheis"
   navbar:
     left:
-      - href: index.qmd
+      - href: index.html
         text: Home
       - text: Data Viz
         menu:
-         - starbucks.qmd
-         - ufo.qmd
+         - href: starbucks.html
+           text: Starbucks
+         - href: ufo.html
+           text: UFO Sightings
 
 format:
   html:
