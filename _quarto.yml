@@ -14,6 +14,10 @@ website:
            text: Starbucks
          - href: ufo.html
            text: UFO Sightings
+      - text: Text Analysis
+        menu: 
+         - href: spotify.html
+           text: Spotify
 
 format:
   html:
