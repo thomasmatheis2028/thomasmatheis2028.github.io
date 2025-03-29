@@ -14,7 +14,6 @@ execute:
 library(tidyverse)
 ```
 
-
 Many students have considered the option at once in their academic careers: "Do I simply just guess on every question of the test?" While achieving a perfect score by guessing on a test is an amazing feat, it is pretty simple to calculate. Assuming multiple-choice tests with 4 choices for each question and 10 questions, this simulation study will determine the probability of passing a test by guessing on every question. In this scenario, passing will be considered a C- (70%) or above. The function will return True or False depending on whether or not the test passed. Using a logical map, the function will be iterated 1000 times to determine a probability of passing.
 
 ```{r}
@@ -32,26 +31,29 @@ test_simulation <- map_lgl(1:1000, ~ test(10, 4, .7)) |>
 For this simulation, 7 out of 1000 tests passed when guessing on all 10 questions, giving a probability of about 0.7%. Not a very great strategy. We can also test different factors, changing the grade required to "pass", the number of questions, and the number of choices for each question. Let's do a few more tests where only 60% is required to pass.
 
 10 Questions, 4 Choices, 60% to Pass:
+
 ```{r}
 set.seed(47)
 test_simulation <- map_lgl(1:1000, ~ test(10, 4, .6)) |>
   mean() |>
   print()
 ```
-A little better, 2.6% chance of passing, but only if you're OK with a 60%.  
 
+A little better, 2.6% chance of passing, but only if you're OK with a 60%.
 
 20 Questions, 4 Choices, 60% to Pass:
+
 ```{r}
 set.seed(47)
 test_simulation <- map_lgl(1:1000, ~ test(20, 4, .6)) |>
   mean() |>
   print()
 ```
-Yikes, just increasing the number of questions to 20 decreases the probability to a 0% chance of passing if you're just guessing.  
 
+Yikes, just increasing the number of questions to 20 decreases the probability to a 0% chance of passing if you're just guessing.
 
 Here is a plot displaying how the number of questions affects the probability of passing, when only 60% is needed to pass:
+
 ```{r}
 #Re-writing our test_simulation as a function
 
@@ -78,6 +80,7 @@ ggplot(results_table, aes(x = questions, y = results)) +
   ) +
   theme_minimal()
 ```
+
 As seen above, as the number of questions on a test increases, the probability of passing a test by guessing on every question decreases significantly. For any number of questions beyond 10, it becomes extremely close to 0. The blue line represents the overall trend in the data.
 
-Overall, the simulation study found that guessing on a test is simply not a good strategy, even when just trying to pass a test. When simulating 1000 times, a probability of 0.7% was found for getting 70% on a 10 question test by guessing. When a 60% was required to pass there was a 2.6% chance, and when increasing the number of questions to 20 there was a 0% chance of passing. Plotting the results of simulating different numbers of questions on the tests revealed the inverse relationship between probability of passing and the number of questions. 
+Overall, the simulation study found that guessing on a test is simply not a good strategy, even when just trying to pass a test. When simulating 1000 times, a probability of 0.7% was found for getting 70% on a 10 question test by guessing. When a 60% was required to pass there was a 2.6% chance, and when increasing the number of questions to 20 there was a 0% chance of passing. Plotting the results of simulating different numbers of questions on the tests revealed the inverse relationship between probability of passing and the number of questions.
