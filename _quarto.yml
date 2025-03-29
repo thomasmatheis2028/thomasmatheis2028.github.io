@@ -18,6 +18,10 @@ website:
         menu: 
          - href: spotify.html
            text: Spotify
+      - text: Simulation Study
+        menu: 
+         - href: test.html
+           text: Guessing on a Test
 
 format:
   html:
