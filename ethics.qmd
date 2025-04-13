@@ -30,7 +30,6 @@ This was touched on in the last paragraph, but in general, permission to use dat
 
 Once data is made public, it can be used in ways the original collectors never anticipated. For example, in 2016 census data was used to create a function that predicted an individual's race based on their last name and address, which employers could then use to discriminate against those who apply for jobs. In this case, the de-anonymized taxi data made it easy to identify where taxi drivers or passengers lived, and even how much money they made/tipped, information that could be used to easily target an individual. While some of the uses might be considered intriguing or even beneficial for academic research, many can be seen as a complete breach of privacy. As The Guardian stated, “anonymized” data can quickly become weaponized in the wrong hands, casting a dark light on how easily open data can turn into targeted surveillance (Hern 2014). This highlights how crucial it is to carefully consider the ethics of a situation to ensure the privacy and safety of the involved parties.
 
-
 # Citations
 
 Goodin, Dan. 2014. “Poorly Anonymized Logs Reveal NYC Cab Drivers’ Detailed Whereabouts.” Ars Technica, June 26. https://arstechnica.com/tech-policy/2014/06/poorly-anonymized-logs-reveal-nyc-cab-drivers-detailed-whereabouts/.
