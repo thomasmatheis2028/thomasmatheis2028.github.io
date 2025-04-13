@@ -22,6 +22,10 @@ website:
         menu: 
          - href: test.html
            text: Guessing on a Test
+      - text: Data Science Ethics
+        menu: 
+         - href: ethics.html
+           text: Poorly Anonymized Data
 
 format:
   html:
