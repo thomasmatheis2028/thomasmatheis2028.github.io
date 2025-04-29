@@ -134,3 +134,8 @@ The policing database is a compilation of the Standford Open Policing Project, f
 References:  
 
 Pierson, Emma, Camelia Simoiu, Jan Overgoor, Sam Corbett-Davies, Daniel Jenson, Amy Shoemaker, Vignesh Ramachandran, et al. 2020. “A Large-Scale Analysis of Racial Disparities in Police Stops Across the United States.” Nature Human Behaviour, 1–10.
+
+```{r, echo=FALSE}
+dbDisconnect(con_traffic, shutdown = TRUE)
+```
+
