@@ -30,6 +30,11 @@ website:
         menu: 
          - href: ethics.html
            text: Poorly Anonymized Data
+           
+      - text: SQL
+        menu: 
+         - href: policing.html
+           text: Police Traffic Stops
 
 format:
   html:

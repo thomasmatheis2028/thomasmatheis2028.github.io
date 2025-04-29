@@ -7,10 +7,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Thomas Matheis">
-<meta name="dcterms.date" content="2025-02-15">
-<meta name="description" content="Analysis of Global UFO Sighting data from TidyTuesday">
+<meta name="dcterms.date" content="2025-04-28">
+<meta name="description" content="A Quick Look into Traffic Stop Data in the United States">
 
-<title>UFO Sightings – Thomas Matheis</title>
+<title>Analyzing United States Policing Data – Thomas Matheis</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,6 +22,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -173,12 +207,12 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">UFO Sightings</h1>
+<h1 class="title">Analyzing United States Policing Data</h1>
 </div>
 
 <div>
   <div class="description">
-    <p>Analysis of Global UFO Sighting data from TidyTuesday</p>
+    <p>A Quick Look into Traffic Stop Data in the United States</p>
   </div>
 </div>
 
@@ -195,7 +229,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">February 15, 2025</p>
+      <p class="date">April 28, 2025</p>
     </div>
   </div>
   
@@ -207,18 +241,569 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>This data set consists of over 80,000 documented UFO sightings all over the world. Some variables include country, region, city, time, shape, and length of encounter. This graph compares the number of encounters between each country in the data set, highlighting the stark difference between the amount of sightings in the United States compared to everyone else.</p>
+<p>Every Day, police officers throughout the United States make thousands of traffic stops, inderectly compiling millions of pieces of data over the courses of deacdes. The Standford Open Policing Project has 88 data tables, which consist of 42 states, various city police departments, and state patrol records. The data ranges from 1999 to 2020, depending on the table. In this brief analysis, we will look at data from Los Angeles, Chicago, and California State Patrol, gathering information regarding demographics, the violation committed, and frequency of traffic stops.</p>
+<p>First, we will look at the demographic distribution over time for traffic stops conducted in the city of Los Angeles, California. While the data set includes information from December of 2009 to June of 2018, the range 2010 - 2017 was used to include all full years of data.</p>
+<div class="cell" data-output.var="race_table">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> raw_descent_description <span class="kw">AS</span> race,</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">count</span>(<span class="op">*</span>) <span class="kw">AS</span> race_count,</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>       <span class="dt">YEAR</span>(<span class="dt">date</span>) <span class="kw">AS</span> <span class="dt">year</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> ca_los_angeles_2020_04_01</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> race, <span class="dt">year</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="kw">HAVING</span> <span class="dt">year</span> <span class="kw">BETWEEN</span> <span class="dv">2010</span> <span class="kw">and</span> <span class="dv">2017</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span> <span class="dt">year</span>, race;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <div class="cell">
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="ufo_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="policing_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>The TidyTuesday data can be found at: https://github.com/rfordatascience/tidytuesday/tree/main/data/2019/2019-06-25</p>
-<p>The original data set, from NUFORC (The National UFO Reporting Center), can be found at: https://nuforc.org/databank/</p>
+<p>From 2010 to 2017, Hispanic individuals were stopped by police more frequently than any other race. While some people may immediately conclude that police officers in Los Angeles are more likely to stop people of Hispanic descent, it is important to take into consideration the demographic composition of the city itself. The United States Census Bureau lists that Hispanic or Latino individuals make up about 48.6% of the population, more than any other race. The same report lists that white people make up about 25.3% of the population, while those of black descent make up about 9.0% of the population, both much lower than 48.6%.</p>
+<p>Next, we will investigate common traffic violations in Chicago, Illinois. There are dozens of possible violations, so only those with 40,000 or more occurances were taken into account, giving us the top ten most common violations.</p>
+<div class="cell" data-output.var="violation_table">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> violation <span class="kw">AS</span> Violation,</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">count</span>(<span class="op">*</span>) <span class="kw">AS</span> <span class="fu">Count</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> il_chicago_2023_01_26</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> Violation</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="kw">HAVING</span> <span class="fu">Count</span> <span class="op">&gt;=</span> <span class="dv">40000</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span> <span class="fu">Count</span> <span class="kw">DESC</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="kvmaujcgey" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#kvmaujcgey table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#kvmaujcgey thead, #kvmaujcgey tbody, #kvmaujcgey tfoot, #kvmaujcgey tr, #kvmaujcgey td, #kvmaujcgey th {
+  border-style: none;
+}
+
+#kvmaujcgey p {
+  margin: 0;
+  padding: 0;
+}
+
+#kvmaujcgey .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#kvmaujcgey .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#kvmaujcgey .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#kvmaujcgey .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#kvmaujcgey .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#kvmaujcgey .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#kvmaujcgey .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#kvmaujcgey .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#kvmaujcgey .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#kvmaujcgey .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#kvmaujcgey .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#kvmaujcgey .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#kvmaujcgey .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#kvmaujcgey .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#kvmaujcgey .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#kvmaujcgey .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#kvmaujcgey .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#kvmaujcgey .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#kvmaujcgey .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#kvmaujcgey .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#kvmaujcgey .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#kvmaujcgey .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#kvmaujcgey .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#kvmaujcgey .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#kvmaujcgey .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#kvmaujcgey .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#kvmaujcgey .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#kvmaujcgey .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#kvmaujcgey .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#kvmaujcgey .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#kvmaujcgey .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#kvmaujcgey .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#kvmaujcgey .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#kvmaujcgey .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#kvmaujcgey .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#kvmaujcgey .gt_left {
+  text-align: left;
+}
+
+#kvmaujcgey .gt_center {
+  text-align: center;
+}
+
+#kvmaujcgey .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#kvmaujcgey .gt_font_normal {
+  font-weight: normal;
+}
+
+#kvmaujcgey .gt_font_bold {
+  font-weight: bold;
+}
+
+#kvmaujcgey .gt_font_italic {
+  font-style: italic;
+}
+
+#kvmaujcgey .gt_super {
+  font-size: 65%;
+}
+
+#kvmaujcgey .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#kvmaujcgey .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#kvmaujcgey .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#kvmaujcgey .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#kvmaujcgey .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#kvmaujcgey .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#kvmaujcgey .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#kvmaujcgey .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#kvmaujcgey div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_heading header">
+<th colspan="2" class="gt_heading gt_title gt_font_normal">Top 10 Traffic Violations in Chicago</th>
+</tr>
+<tr class="gt_heading even">
+<th colspan="2" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border">Dec 2011 - May 2020</th>
+</tr>
+<tr class="gt_col_headings header">
+<th id="Violation" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Violation</th>
+<th id="Count" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Count</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="Violation">HEADLIGHT TWO REQUIRED-MOTOR VEHICLE</td>
+<td class="gt_row gt_center" headers="Count">280628</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Violation">STOP AT STOP SIGN</td>
+<td class="gt_row gt_center" headers="Count">248009</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Violation">LIGHT, TAIL LIGHTS REQUIRED</td>
+<td class="gt_row gt_center" headers="Count">110740</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Violation">DRIVING ON SUSPENDED LICENSE</td>
+<td class="gt_row gt_center" headers="Count">90483</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Violation">DISPLAY ST REG-FRONT/REAR</td>
+<td class="gt_row gt_center" headers="Count">90143</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Violation">DRIVING WHILE USING CELLULAR PHONE PROHIBITED</td>
+<td class="gt_row gt_center" headers="Count">67281</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Violation">DISOBEY RED CIRCULAR STEADY SIGNAL STOP</td>
+<td class="gt_row gt_center" headers="Count">64055</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Violation">REGISTRATION PLATES</td>
+<td class="gt_row gt_center" headers="Count">58338</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Violation">NO VALID REGISTRATION</td>
+<td class="gt_row gt_center" headers="Count">51230</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Violation">DISPLAY ST REG-REAR MOTRCYCL/TRLR/SEMI-TRLR</td>
+<td class="gt_row gt_center" headers="Count">49153</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Failing to have two functional headlights and failing to stop at a stop sign appear to be the two most common traffic violations in Chicago, with over 100,000 more occurances than the third most common violation, which is failing to have two working tail lights. Four common violations all relate to registration: failure to display registration, no valid registration, no registration plates, and failure to display registration, this time for motorcyles and trailers. Some other common ones are driving on a suspended license and driving while using a cellphone.</p>
+<p>Last, we can add up the numbers of stops for each day of the month to see whether or not the California State Patrol tends to conduct more traffic stops at the beginning of the month, end of the month, or somewhere in the middle. Only 30 days were used, instead of 31, due to every month having at least 30 days aside from February.</p>
+<div class="cell" data-output.var="date_table">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">EXTRACT</span>(<span class="dt">DAY</span> <span class="kw">FROM</span> <span class="dt">date</span>) <span class="kw">AS</span> <span class="dt">day</span>,</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">count</span>(<span class="op">*</span>) <span class="kw">AS</span> num_stops</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> ca_statewide_2023_01_26</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> <span class="dt">day</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="kw">HAVING</span> <span class="dt">day</span> <span class="op">&lt;=</span> <span class="dv">30</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span> <span class="dt">day</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="policing_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>There appears to be a slight tendency to conduct more traffic stops during the first few days of the month. The light blue regression line indicates a slight inverse relationship between the day of the month and number of stops. While the differences are not huge, the small trend could have an explation. For example, if quotas happen to exist within an agency, officers may be inclined to complete these quotas as soon as possible, slowly easing off once they have reached it.</p>
+<p>Overall, data gathered from traffic stop reports has the potential to reveal extremely interesting trends. We were able to easily examine the demographic composition of Los Angeles traffic stops, comparing them to the actual demoagraphics of the city. We found that Hispanic individuals get stopped at a more frequent rate than other races, though they make up the majority of the overall population. In Chicago, the most common traffic violations were not having two working head lights and failing to stop at a stop sign, neither of which were very surprising. What was interesting was the violation that ranked fourth in frequency, driving with a suspended license. If almost 100,000 people were pulled over for not having a valid license, one can only imagine the number of people who get away with it and are driving every day. Finally, we discovered that, though small, there is some correlation between the day of the month and the frequency of traffic stops conducted. It was observed that it may be more likely to get pulled over during the first few days of the month compared to the end of the month, though the difference in frequency was not huge.</p>
 
 
 
