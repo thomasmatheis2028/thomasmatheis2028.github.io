@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.40">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Thomas Matheis">
+<meta name="dcterms.date" content="2025-04-21">
+<meta name="description" content="Comparing Start-Line Positions of Local and Traveling Runners">
+
+<title>Start-Line Positions – Thomas Matheis</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-8ea72dc5fed832574809a9c94082fbbb.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-97e8118aa17df01863e4d4c59f1f926f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Thomas Matheis</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-data-vizualization" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Data Vizualization</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-data-vizualization">    
+        <li>
+    <a class="dropdown-item" href="./starbucks.html">
+ <span class="dropdown-text">Starbucks Beverages</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ufo.html">
+ <span class="dropdown-text">UFO Sightings</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./athletics.html">
+ <span class="dropdown-text">Pomona-Pitzer Athletic Spending</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./registration.html">
+ <span class="dropdown-text">5C Pre-Registration</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-text-analysis" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Text Analysis</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-text-analysis">    
+        <li>
+    <a class="dropdown-item" href="./spotify.html">
+ <span class="dropdown-text">Spotify Wrapped Analysis</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-statistical-simulations" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Statistical Simulations</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-statistical-simulations">    
+        <li>
+    <a class="dropdown-item" href="./test.html">
+ <span class="dropdown-text">Guessing on a Test</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hockey.html">
+ <span class="dropdown-text">Hockey Player Birth Months</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./runners.html">
+ <span class="dropdown-text">Start-Line Positions</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-data-science-ethics" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Data Science Ethics</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-data-science-ethics">    
+        <li>
+    <a class="dropdown-item" href="./ethics.html">
+ <span class="dropdown-text">Poorly Anonymized NYC Taxi Data</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-sql" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">SQL</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-sql">    
+        <li>
+    <a class="dropdown-item" href="./policing.html">
+ <span class="dropdown-text">Analyzing United States Policing Data</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="./presentation.html"> 
+<span class="menu-text">Presentation</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#theoretical-request-for-funds" id="toc-theoretical-request-for-funds" class="nav-link active" data-scroll-target="#theoretical-request-for-funds">(Theoretical) Request for Funds</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods">Methods</a></li>
+  <li><a href="#data-analysis" id="toc-data-analysis" class="nav-link" data-scroll-target="#data-analysis">Data Analysis</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
+  <li><a href="#reflection" id="toc-reflection" class="nav-link" data-scroll-target="#reflection">Reflection</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content column-page-left" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Start-Line Positions</h1>
+</div>
+
+<div>
+  <div class="description">
+    <p>Comparing Start-Line Positions of Local and Traveling Runners</p>
+  </div>
+</div>
+
+
+<div class="quarto-title-meta column-page-left">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Thomas Matheis </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">April 21, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="theoretical-request-for-funds" class="level1">
+<h1>(Theoretical) Request for Funds</h1>
+<p>To detect a meaningful difference of 80 seconds in lag between local and non-local runners, assuming a standard deviation of about 160 seconds, funding sufficient for a total sample size of approximately 126 runners (63 local and 63 non-local) is requested. This calculation is based on achieving 80% power with a significance level of <span class="math inline">\(\alpha\)</span> = 0.05. The value 80 was chosen based on the thought that 80 seconds of lag would be enough to make a difference in race placements for a majority of competitors.</p>
+</section>
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<p>When thousands of runners gather for large races, many competitors are forced to start farther back from the starting line than others, often taking up to four or five minutes just to reach the initial starting line. During the Cherry Blossom Ten Mile Run held in Washington D.C. every April, most runners experience at least some delay from when the race starts until they cross the starting line, a result of the massive number of people participating in the event. Usually referred to as lag, this delay can be influenced by several things, for example, their skill level, or more importantly, their position from the starting line.</p>
+<p>Though the starting position very obviously affects the time it takes to reach the starting line, what is not immediately obvious are the factors that determine the starting position for each individual. One factor in particular that may influence a runner’s starting position is how local they are. For example, many runners in this specific race live in the surrounding area, which consists of Washington D.C., Virginia, and Maryland, while thousands of other competitors have to travel from farther states or countries. If a runner lives closer, they may end up arriving earlier than other competitors and be more familiar with the surrounding area, starting closer to the front. On the other hand, due to their proximity to the race, they may simply participate just for fun and start closer to the back. Runners that are not local may be unfamiliar with the location and end up starting closer towards the end of the pack, but if they are dedicated enough to fly or drive hours to the race, their dedication might lead them to start right at the front.</p>
+<p>Focusing on these two groups of competitors, local and non-local runners, this project will investigate whether runners start a race in significantly different positions depending on how local they are, measured by their starting lag. After comparing a sample of runners from a prior Cherry Blossom Race, we will be able to come to a conclusion regarding any differences in starting position that may be found. Section 2 of this project describes the methods and details of the sample being used, along with various visual summaries of the data set. Section 3 presents the results, using statistical analysis and inference to determine the implications it has on the overall investigation. Section 4 provides a conclusion to this project, summarizing the findings and providing an insight into possible errors and future directions of this topics.</p>
+</section>
+<section id="methods" class="level1">
+<h1>Methods</h1>
+<p>To gather sufficient information to make any claims about the relationship between locality and starting position, data from the 2005 Cherry Blossom 10 Mile Run was used. The data set includes variables consisting of each runner’s state/country of residence, total time, net time, age, and sex. Total time measures the time from when the starting gun was fired to when the runner crossed the finish line, while net time measures when the participant first crossed the starting line to when they crossed the finish line. We are interested in a separate variable known as lag, which can be calculated by subtracting net time from total time. Overall, a large lag indicates a further position from the starting line, while a smaller lag indicates a closer starting position. In order to quickly identify the locality of a runner, we divided runners into two groups, where local runners were those from Washington D.C., Maryland, or Virginia, and non-local runners were all the remaining individuals. Our sample from the data set consisted of 30 runners, where 20 observations were local runners and 10 were non-local runners. The sample was randomly selected from the data set to minimize any potential bias.</p>
+<p>The visual below displays the distribution of lag in both the local and non-local groups. The blue box plot represents the local runners while the orange box plot represents the non-local runners:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Utilizing a given data set "TMR.mini"</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(TMR.mini, <span class="fu">aes</span>(<span class="at">x=</span>DMV, <span class="at">y=</span>lag, <span class="at">fill=</span>DMV)) <span class="sc">+</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">"Comparison of Lag Times by Runner Origin"</span>,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"n = 20 local, n = 10 non-local"</span>,</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">x=</span><span class="st">"Local?"</span>,</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">y=</span><span class="st">"Lag (seconds)"</span>) <span class="sc">+</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values=</span><span class="fu">c</span>(<span class="st">"orange"</span>,<span class="st">"skyblue"</span>),</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>                    <span class="at">labels=</span><span class="fu">c</span>(<span class="st">"Non-local"</span>,<span class="st">"Local"</span>)) <span class="sc">+</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_family =</span> <span class="st">"Palatino"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="runners_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Before performing any statistical analysis, some observations can still be made. First, it can be seen visually that local runners appear to have higher lag, indicating a further starting position and more variability. Non-local runners seem to have a lower median and smaller spread, potentially indicating less variability among non-local runners. Still, the exact distributions remain unclear, and cannot be determined without further analysis.</p>
+<p>Because our investigation is dependent on two independent groups, local runners vs.&nbsp;non-local runners, we can compare them using their sample means, which after computing we get two values:</p>
+<p><span class="math inline">\(\bullet\)</span> <span class="math inline">\(\bar{X}_{local} = 229.45 \text{ seconds}\)</span><br>
+<span class="math inline">\(\bullet\)</span> <span class="math inline">\(\bar{X}_{non-local} = 159.70 \text{ seconds}\)</span></p>
+<p>Based off of our sample means, it looks like local runners tend to start farther from the starting line, but we do not know anything for sure yet. We will perform statistical analysis in section 3 to determine whether or not these values are significantly different enough from each other to conclude that local runners start noticeably closer to the starting line than non-local runners.</p>
+<p>Additionally, though our sample was selected at random to reduce the potential for any bias to occur, some limitations still exist. For example, because of the small sample size consisting of only 30 runners from one specific road race, our ability to generalize any findings to the population of all runners or even another race is limited. Additionally, because the groups within our sample are even smaller, with non-local runners only having 10 observations, assumptions depending on the Central Limit Theorem may be questionable. Because of this, we will first conduct randomization tests to understand how far apart the means of the two groups might be under the null-hypothesis. After that, we will be able to gain a deeper understanding about the significance of our two means in relation to our investigation, without having to make any assumptions about the distribution of our data.</p>
+</section>
+<section id="data-analysis" class="level1">
+<h1>Data Analysis</h1>
+<p>The goal of this analysis is to determine whether local runners start further behind the starting line than non-local runners, as measured by their lag. A higher lag means a runner started further back, while a lower lag means a runner began closer to the starting line. Our null hypothesis and alternate hypothesis can be written as:</p>
+<p><span class="math display">\[H_0: \mu_{local} = \mu_{non-local}\]</span> <span class="math display">\[H_A: \mu_{local} &gt; \mu_{non-local}\]</span> Or, because we will be looking at the differences between two means, it is more appropriate to state the hypotheses in terms of the mean difference:</p>
+<p><span class="math display">\[H_0: \mu_{d} = 0\]</span> <span class="math display">\[H_A: \mu_{d} &gt; 0\]</span></p>
+<p>The null hypothesis states that runner locality has no effect on the starting position, while the alternate hypothesis states that local runners have a greater average lag time and therefore start farther away than non-local runners, which we have chosen after observing <span class="math inline">\(\bar{X}_{local} = 229.45 \text{ seconds}\)</span> and <span class="math inline">\(\bar{X}_{non-local} = 159.70 \text{ seconds}\)</span>.</p>
+<p>To compare lag times between local and non-local runners, one might initially think to use a two-sample t-test. However, this method is dependent on the assumptions that the sampling distribution of the group means is approximately normal and that the variances are not drastically different. In our case, these assumptions are questionable due to our small, unequal sample sizes of only 20 local runners and 10 non-local runners, and the skewness of our data, as observed in the histograms of our observations below:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(local, <span class="fu">aes</span>(<span class="at">x =</span> lag)) <span class="sc">+</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">75</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">fill =</span> <span class="st">"skyblue"</span>) <span class="sc">+</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Lag"</span>,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Frequency"</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Local Runners"</span>,</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"n = 20"</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span> <span class="fu">theme_minimal</span>(<span class="at">base_family =</span> <span class="st">"Palatino"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="runners_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="576"></p>
+</figure>
+</div>
+</div>
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(nonlocal, <span class="fu">aes</span>(<span class="at">x =</span> lag)) <span class="sc">+</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">75</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">fill =</span> <span class="st">"orange"</span>) <span class="sc">+</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Lag"</span>,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Frequency"</span>,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Non-Local Runners"</span>,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"n = 10"</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span> <span class="fu">theme_minimal</span>(<span class="at">base_family =</span> <span class="st">"Palatino"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="runners_files/figure-html/unnamed-chunk-4-2.png" class="img-fluid figure-img" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>It can clearly be seen that both groups are right skewed, due to a floor at 0, and have small sample sizes, suggesting that we cannot assume that their distributions are normal. Another way of thinking of the distribution is to consider that more runners will be densely centered around the starting line, while there will be less runners the farther back from the starting line we travel. In order to avoid possibly incorrectly assuming normality, we should not use a theory-based two-sample t-test.</p>
+<p>Because of these concerns, we will instead perform a randomization test. This approach does not rely on the assumption of normality and instead simulates the null hypothesis directly by randomly assigning the “local” and “non-local” labels to the observed lag times, preserving the group sizes. We then compute and keep track of a test statistic for each shuffled data set, generating a null distribution of the chosen test statistic.</p>
+<p>The first approach we will use will involve performing a randomization test using the differences of the mean lag for each group. Our observed difference of the sample means was:</p>
+<p><span class="math display">\[\bar{X}_{local} - \bar{X}_{non-local} = 229.45 - 159.70 = 69.75\]</span> After performing a randomization test of 1000 permutations, we can plot a histogram of each <span class="math inline">\(\bar{X}_{local} - \bar{X}_{non-local}\)</span>, with the red line marking our observed difference:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Utilizing a given data set "null.sim"</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">as.data.frame</span>(null.sim), <span class="fu">aes</span>(<span class="at">x =</span> null.sim)) <span class="sc">+</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">45</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">fill =</span> <span class="st">"skyblue"</span>) <span class="sc">+</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fl">69.75</span>, <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Difference in Means"</span>,</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Frequency"</span>,</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Randomization Test"</span>,</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"n = 1000"</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span> <span class="fu">theme_minimal</span>(<span class="at">base_family =</span> <span class="st">"Palatino"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="runners_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Our histogram of the differences of the means appears to follow the normal distribution, giving us our null distribution, and <span class="math inline">\(\mu_d\)</span> does appear to be centered around 0. However, our observed value does not seem to be very odd of a result under the null hypothesis.</p>
+<p>To determine whether or not our observed difference is plausible under the null, we can now compute a p-value by finding the number of times our simulation returned a value greater than or equal to 69.75. If <span class="math inline">\(p &lt; 0.05\)</span>, we will reject <span class="math inline">\(H_0\)</span>.</p>
+<p><span class="math display">\[p = \frac{\sum (\bar{X}_{local} - \bar{X}_{non-local} \ge 69.75)}{\text{Total Simulations}} = \frac{177}{1000} = 0.177\]</span></p>
+<p>With a p-value of 0.177, the probability of observing a difference of the means of lag time between local runners and non-local runners of 69.75 or greater under the null hypothesis is about 17.7%, which is pretty common and could reasonably occur under the null. Because <span class="math inline">\(0.177 &gt; 0.05\)</span>, we fail to reject <span class="math inline">\(H_0\)</span>, and do not have enough evidence to suggest that local runners have a tendency to start farther away from the starting line than non-local runners.</p>
+<p>Another way we can use a randomization test in this situation is to perform a randomization test using the t-statistic. Our t-statistic from our observed data can be calculated to find <span class="math inline">\(t = -0.975\)</span>.</p>
+<p>Once again shuffling our sample to create a randomization test of 1000 permutations, we can plot the null distribution of our t-statistics on a histogram, marking our observed t-statistics with a red line:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Once again utilizing a given data set "sim"</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sim, <span class="fu">aes</span>(<span class="at">x =</span> t)) <span class="sc">+</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="fl">0.6</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">fill =</span> <span class="st">"skyblue"</span>) <span class="sc">+</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> observed.t, <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"t-statistic"</span>,</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Frequency"</span>,</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Randomization Test"</span>,</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"n = 1000"</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span> <span class="fu">theme_minimal</span>(<span class="at">base_family =</span> <span class="st">"Palatino"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="runners_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Once again, our null distribution appears to be normal, though our observed statistic does not seem to be too unusual when simulated under <span class="math inline">\(H_0\)</span>. We can again compute a p-value to determine whether or not we should reject the null hypothesis, rejecting if <span class="math inline">\(p , 0.05\)</span>:</p>
+<p><span class="math display">\[p = \frac{\sum (t \le -0.975)}{\text{Total Simulations}} = \frac{178}{1000} = 0.178\]</span> Confirming the results from our first randomization test, we are left with a p-value of 0.178, meaning the probability of observing a t-statistic of -0.975 or less under the null hypothesis is about 17.8%, which means it not uncommon to observe our data under the null hypothesis. <span class="math inline">\(0.178 &gt; 0.05\)</span>, therefore we again fail to reject <span class="math inline">\(H_0\)</span>, and can conclude that we do not have enough evidence to suggest that local runners have a tendency to start farther away from the starting line than non-local runners.</p>
+</section>
+<section id="summary" class="level1">
+<h1>Summary</h1>
+<p>The goal of this project was to investigate whether local runners tend to have significantly different starting positions in a race compared to non-local runners. We measured this using lag, defined as the difference in time between the official start and the moment a runner crosses the starting line. A higher lag indicates that a runner took longer to cross the starting line, therefore having a starting position farther back. Based on a random sample of 30 runners, where 20 were local and 10 were non-local, we aimed to test whether one group displayed significantly greater lag times.</p>
+<p>After calculating the sample means, the local group did have a higher average lag of about 69.75 seconds greater than the non-local group, which pointed to local runners potentially starting farther back than traveling runners. After considering issues such as a small sample size and skewed data, we decided to perform randomization tests instead of a standard two-sample t-test. We used randomization tests to simulate the null hypothesis directly without having to depend on the assumption that are data was normal. After considering our sample mean where local runners had a higher average lag time, we decided to use a directional hypothesis, where the average lag time for local runners was greater than the average lag time for non-local runners.</p>
+<p>We performed two types of randomization tests, the first one based on the difference in the means of the two groups and the other using the t-statistic. Both methods resulted in the same conclusion, that our observed data did not significantly deviate from our simulated data. The one-sided p-value for the mean difference test was 0.177, along with 0.178 for the t-statistic test. These values tell us that in the world where local runners and non-local runners have the same average lag time, we would see data as extreme or more extreme than our observed data about 18% of the time. Since our observed data has almost a 1 in 5 chance of occurring under our simulated data, we fail to find enough statistical evidence to conclude that local runners start farther from the starting line than non-local participants. This suggests that there may not be any correlation between locality and starting position among runners.</p>
+<p>Despite our findings seeming relatively conclusive that no connection exists between the two variables, it is important to take into account the limitations of this project. Because our data consisted of only 10 non-local runners and 20 local runners, our small sample size may not have been enough to detect a meaningful difference in lag time and instead may have been influenced by natural variability. Additionally, as mentioned previously, our sample only included data from a single race, which limits the ability to generalize it to the entire population of runners in other races.</p>
+<p>A major way to expand on this project in the future would revolve around gathering enough observations to detect a meaningful difference in lag time. This would also include using an equal amount of observations for both local runners and non-local runners, since our sample had twice as many local participants. Utilizing data from various other races would also be greatly beneficial, as it would allow us to generalize our findings to a larger population of runners. Another factor to focus on in the future is to examine the relationship between starting position and other variables. For example, younger runners may be more likely to start farther back, and therefore have greater lag, regardless of where they are from. Finally, it is important to consider the fact that some participants may not get to intentionally choose where they start. For some races, starting position may even be assigned at random, or others may arrive late and be forced to start farther back, once again regardless of if they are a local or not.</p>
+<p>Overall, while we were not able to find sufficient evidence to draw a connection between the starting position of runners and where they are from, the project highlighted the importance of utilizing the appropriate methodology when analyzing data. The implementation of randomization tests allowed us to come to a conclusion without relying on assumptions. With future work involving a greater number of observations, it is possible to further investigate the relationship between runners and their starting positions.</p>
+</section>
+<section id="reflection" class="level1">
+<h1>Reflection</h1>
+<p>After completing the analysis using a sample of just 30 observations, we then looked at the entirety of the TenMileRace data set, which contains over 8000 observations. This allowed us to determine whether having an adequate sample size to detect a meaningful difference would provide us with stronger evidence towards our hypothesis.</p>
+<p>After calculating the lag and whether or not the runner was local for each observation, we performed a standard two-sided t-test. Despite the possibility that our data may still not be normal, the Central Limit Theorem tell us that <span class="math inline">\(\bar{X}\)</span> will be normal as long as <span class="math inline">\(n\)</span> is sufficiently large, and we have 8636 observations now. Contrary to our t-statistic from our small sample, which was -0.975, our observed t-statistic for the entire data set was -4.68, which is massive difference. The histogram below displays the corresponding t-distribution with 1515 degrees of freedom, with the red line representing our observed t-statistic from the full data set:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load full dataset</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"TenMileRace"</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Filter to remove missing values and calculate lag</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>TMR.full <span class="ot">&lt;-</span> TenMileRace <span class="sc">|&gt;</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(net), <span class="sc">!</span><span class="fu">is.na</span>(time), <span class="sc">!</span><span class="fu">is.na</span>(state)) <span class="sc">|&gt;</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">lag =</span> time <span class="sc">-</span> net,</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">DMV =</span> state <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"DC"</span>, <span class="st">"MD"</span>, <span class="st">"VA"</span>)  <span class="co"># TRUE for local runners</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>ttest <span class="ot">&lt;-</span> <span class="fu">t.test</span>(lag <span class="sc">~</span> DMV, <span class="at">data =</span> TMR.full)</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>t_val <span class="ot">&lt;-</span> ttest<span class="sc">$</span>statistic</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>df_val <span class="ot">&lt;-</span> ttest<span class="sc">$</span>parameter</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>t_dist_df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">6</span>, <span class="dv">6</span>, <span class="at">length.out =</span> <span class="dv">1000</span>),</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">density =</span> <span class="fu">dt</span>(x, <span class="at">df =</span> df_val)</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(t_dist_df, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> density)) <span class="sc">+</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> t_val, <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_area</span>(<span class="at">data =</span> <span class="fu">filter</span>(t_dist_df, x <span class="sc">&gt;=</span> t_val),</span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>            <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> density),</span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>            <span class="at">fill =</span> <span class="st">"skyblue"</span>) <span class="sc">+</span></span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"t-Distribution"</span>,</span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"degrees of freedom = 1515"</span>,</span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"t-value"</span>, <span class="at">y =</span> <span class="st">"Density"</span>) <span class="sc">+</span></span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_family =</span> <span class="st">"Palatino"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="runners_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>This is a drastic difference from our original sample of 30 observations, and this time our p-value was calculated to be <span class="math inline">\(p = 0.00\)</span> with a 95% confidence interval between 13.77 seconds and 33.63 seconds. This means that out of over 1000 permutations of our data, not even one of them had a corresponding t-statistic as extreme or more extreme than our observed value. Additionally we can be 95% confident that the true average difference in lag lies somewhere between about 14 seconds and 34 seconds. This is important to note, as a lag of between 14 and 34 is not large enough to be considered a meaningful difference, though some may argue otherwise. For a majority of runners, a difference of 30 seconds will likely not have a meaningful impact on placement, and would likely go unnoticed over long races.</p>
+<p>Though we calculated a p-value of 0, and therefore have strong statistical evidence to believe that local runners start farther back than non-local runners, the difference is not large enough to be significant. This conclusion supports our result from the smaller sample which suggested no significant difference between the two groups, though some may argue that a lag between 14 and 34 could be a deciding factor in the race. This comparison emphasizes how results obtained from smaller sample sizes can still have relevancy towards a much larger population, depending on one’s choice for the smallest meaningful difference. Though we technically made a type II error in our original project, failing to reject a false null, our methodology and conclusion were still correct. We used randomization tests in order to avoid making an assumption about the normality of our data, and our interpretation correctly followed the corresponding results of those tests. Though we did not find evidence proving a significant difference, we did observe a difference in the correct direction, just not a large enough difference to reject with our small sample size. After using the full data set we were able to confirm that the observed trend was real, but the true difference was indeed too small to be considered meaningful after all.</p>
+<p>Overall, this reflection further established the importance of sample size and the careful selection of methodology. It also showed that revisiting a project when more data becomes available can lead to a better understanding of the originally published results. Finally, both the small sample and full data set point to the same conclusion: while local runners may start slightly farther back than traveling runners, the difference is not significant enough to suggest a significant behavioral divide.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

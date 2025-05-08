@@ -130,17 +130,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-data-viz" role="link" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Data Viz</span>
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-data-vizualization" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Data Vizualization</span>
     </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-data-viz">    
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-data-vizualization">    
         <li>
     <a class="dropdown-item" href="./starbucks.html">
- <span class="dropdown-text">Starbucks</span></a>
+ <span class="dropdown-text">Starbucks Beverages</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./ufo.html">
  <span class="dropdown-text">UFO Sightings</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./athletics.html">
+ <span class="dropdown-text">Pomona-Pitzer Athletic Spending</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./registration.html">
+ <span class="dropdown-text">5C Pre-Registration</span></a>
   </li>  
     </ul>
   </li>
@@ -151,18 +159,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="dropdown-menu" aria-labelledby="nav-menu-text-analysis">    
         <li>
     <a class="dropdown-item" href="./spotify.html">
- <span class="dropdown-text">Spotify</span></a>
+ <span class="dropdown-text">Spotify Wrapped Analysis</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-simulation-study" role="link" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Simulation Study</span>
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-statistical-simulations" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Statistical Simulations</span>
     </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-simulation-study">    
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-statistical-simulations">    
         <li>
     <a class="dropdown-item" href="./test.html">
  <span class="dropdown-text">Guessing on a Test</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hockey.html">
+ <span class="dropdown-text">Hockey Player Birth Months</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./runners.html">
+ <span class="dropdown-text">Start-Line Positions</span></a>
   </li>  
     </ul>
   </li>
@@ -173,7 +189,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="dropdown-menu" aria-labelledby="nav-menu-data-science-ethics">    
         <li>
     <a class="dropdown-item" href="./ethics.html">
- <span class="dropdown-text">Poorly Anonymized Data</span></a>
+ <span class="dropdown-text">Poorly Anonymized NYC Taxi Data</span></a>
   </li>  
     </ul>
   </li>
@@ -184,10 +200,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="dropdown-menu" aria-labelledby="nav-menu-sql">    
         <li>
     <a class="dropdown-item" href="./policing.html">
- <span class="dropdown-text">Police Traffic Stops</span></a>
+ <span class="dropdown-text">Analyzing United States Policing Data</span></a>
   </li>  
     </ul>
   </li>
+  <li class="nav-item">
+    <a class="nav-link" href="./presentation.html"> 
+<span class="menu-text">Presentation</span></a>
+  </li>  
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
@@ -243,15 +263,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <p>Many students have considered the option at once in their academic careers: “Do I simply just guess on every question of the test?” While achieving a perfect score by guessing on a test is an amazing feat, it is pretty simple to calculate. Assuming multiple-choice tests with 4 choices for each question and 10 questions, this simulation study will determine the probability of passing a test by guessing on every question. In this scenario, passing will be considered a C- (70%) or above. The function will return True or False depending on whether or not the test passed. Using a logical map, the function will be iterated 1000 times to determine a probability of passing.</p>
 <div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>test <span class="ot">&lt;-</span> <span class="cf">function</span>(questions, choices, grade){</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  num_correct <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span>choices, questions, <span class="at">replace =</span> <span class="cn">TRUE</span>) <span class="sc">==</span> <span class="dv">1</span>) </span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>((num_correct <span class="sc">/</span> questions) <span class="sc">&gt;=</span> grade)</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">47</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">47</span>)    <span class="co">#Setting seed for reproducibility</span></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>test_simulation <span class="ot">&lt;-</span> <span class="fu">map_lgl</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>, <span class="sc">~</span> <span class="fu">test</span>(<span class="dv">10</span>, <span class="dv">4</span>, .<span class="dv">7</span>)) <span class="sc">|&gt;</span></span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>() <span class="sc">|&gt;</span></span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.007</code></pre>
 </div>
@@ -259,10 +282,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>For this simulation, 7 out of 1000 tests passed when guessing on all 10 questions, giving a probability of about 0.7%. Not a very great strategy. We can also test different factors, changing the grade required to “pass”, the number of questions, and the number of choices for each question. Let’s do a few more tests where only 60% is required to pass.</p>
 <p>10 Questions, 4 Choices, 60% to Pass:</p>
 <div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">47</span>)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>test_simulation <span class="ot">&lt;-</span> <span class="fu">map_lgl</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>, <span class="sc">~</span> <span class="fu">test</span>(<span class="dv">10</span>, <span class="dv">4</span>, .<span class="dv">6</span>)) <span class="sc">|&gt;</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>() <span class="sc">|&gt;</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.026</code></pre>
 </div>
@@ -270,10 +296,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>A little better, 2.6% chance of passing, but only if you’re OK with a 60%.</p>
 <p>20 Questions, 4 Choices, 60% to Pass:</p>
 <div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">47</span>)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>test_simulation <span class="ot">&lt;-</span> <span class="fu">map_lgl</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>, <span class="sc">~</span> <span class="fu">test</span>(<span class="dv">20</span>, <span class="dv">4</span>, .<span class="dv">6</span>)) <span class="sc">|&gt;</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>() <span class="sc">|&gt;</span></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0</code></pre>
 </div>
@@ -281,6 +310,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Yikes, just increasing the number of questions to 20 decreases the probability to a 0% chance of passing if you’re just guessing.</p>
 <p>Here is a plot displaying how the number of questions affects the probability of passing, when only 60% is needed to pass:</p>
 <div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Re-writing our test_simulation as a function</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>pass_probability <span class="ot">&lt;-</span> <span class="cf">function</span>(num_questions, num_simulations, num_choices, pct_grade){</span>
@@ -296,7 +327,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>()</span>
 <span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(results_table, <span class="fu">aes</span>(<span class="at">x =</span> questions, <span class="at">y =</span> results)) <span class="sc">+</span></span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">method =</span> <span class="st">"loess"</span>, <span class="at">formula =</span> y <span class="sc">~</span> x) <span class="sc">+</span></span>
 <span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
 <span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
 <span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
@@ -304,7 +335,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Probability of Passing"</span>,</span>
 <span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Probability of Passing a Test by Guessing"</span></span>
 <span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_family =</span> <span class="st">"Palatino"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">

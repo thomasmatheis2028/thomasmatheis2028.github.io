@@ -9,32 +9,43 @@ website:
       - href: index.html
         text: Home
         
-      - text: Data Viz
+      - text: Data Vizualization
         menu:
          - href: starbucks.html
-           text: Starbucks
+           text: Starbucks Beverages
          - href: ufo.html
            text: UFO Sightings
+         - href: athletics.html
+           text: Pomona-Pitzer Athletic Spending
+         - href: registration.html
+           text: 5C Pre-Registration
            
       - text: Text Analysis
         menu: 
          - href: spotify.html
-           text: Spotify
+           text: Spotify Wrapped Analysis
            
-      - text: Simulation Study
+      - text: Statistical Simulations
         menu: 
          - href: test.html
            text: Guessing on a Test
+         - href: hockey.html
+           text: Hockey Player Birth Months
+         - href: runners.html
+           text: Start-Line Positions
+         
            
       - text: Data Science Ethics
         menu: 
          - href: ethics.html
-           text: Poorly Anonymized Data
+           text: Poorly Anonymized NYC Taxi Data
            
       - text: SQL
         menu: 
          - href: policing.html
-           text: Police Traffic Stops
+           text: Analyzing United States Policing Data
+      - href: presentation.html
+        text: Presentation
 
 format:
   html:

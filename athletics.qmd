@@ -1,0 +1,77 @@
+---
+title: "Pomona-Pitzer Athletic Spending"
+description: |
+  Breakdown of Men vs. Women Spending for Pomona-Pitzer Athletics
+author: Thomas Matheis
+date: May 7, 2025
+format: html
+execute:
+  warning: false
+  message: false
+---
+
+```{r, echo=FALSE}
+library(ggplot2)
+library(tidyverse)
+library(patchwork)
+```
+
+This dataset includes the spending of all Pomona-Pitzer athletic teams, including the number of athletes on each team, for both the 2022-2023 and 2023-2024 seasons. This graph compares the spending for all of the teams that have both men and women programs (for example, excluding sports such as baseball, football, softball, etc.) to highlight any key differences in spending between the programs. The raw data was collected from both the Pomona-Pitzer Athletics website and Equity in Athletics Data Analysis. For a more in-depth breakdown of the gender disparities found in Pomona-Pitzer athletics, check out The Student Life article "P-P sport expenses: How rosters and post season travel affect the budget," written by Jun Kwon and William Walz.
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+
+ppeada <- read_csv("/Users/tommy/Desktop/Intro to Stats/Intro to Stats/ppeada.csv")
+ppeada23 <- read_csv("/Users/tommy/Desktop/Intro to Stats/Intro to Stats/ppeada23.csv")
+
+ppeada1 <- ppeada |> 
+  filter(sport != "Baseball", sport != "Football", sport != "Softball", sport != "Volleyball", sport != "Lacrosse")
+ppeada2 <- ppeada23 |> 
+  filter(sport != "Baseball", sport != "Football", sport != "Softball", sport != "Volleyball", sport != "Lacrosse")
+```
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+
+ggplot(ppeada1, aes(x = sport, y = expenses, fill = sex)) +
+  geom_bar(stat = "identity", position = "fill") +
+  scale_fill_manual(
+    values = c(
+      "M"   = "#0057b8",   
+      "F" = "#f7941d"    
+    ),
+    name = "Team"
+  ) +
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1)) +
+  labs(
+    x = "", y = "Proportion of Funding",
+    title = "Proportions of Funding Between Men's and Women's Teams by Sport",
+    subtitle = "2023-2024"
+  ) +
+  theme_minimal(base_family = "Palatino")
+
+ggplot(ppeada2, aes(x = sport, y = expenses, fill = sex)) +
+  geom_bar(stat = "identity", position = "fill") +
+  scale_fill_manual(
+    values = c(
+      "M"   = "#0057b8",   
+      "F" = "#f7941d"  
+    ),
+    name = "Team"
+  ) +
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1)) +
+  labs(
+    x = "", y = "Proportion of Funding",
+    title = "Proportions of Funding Between Men's and Women's Teams by Sport",
+    subtitle = "2022-2023"
+  ) +
+  theme_minimal(base_family = "Palatino")
+```
+
+The Pomona-Pitzer Athletics 2023-2024 EADA Report can be found at: https://sagehens.com/documents/2024/10/22/EADA_Report_23-24_FINAL.pdf
+
+The 2022-2023 report can be found directly on EADA's website: https://ope.ed.gov/athletics/#/institution/details
+
+Kwon, Jun. Walz, William. 2025. "P-P sport expenses: How rosters and post season travel affect the budget." The Student Life Newspaper, April 25. https://tsl.news/p-p-sport-expenses-how-rosters-and-post-season-travel-affect-the-budget/.

@@ -1,5 +1,5 @@
 ---
-title: "Spotify"
+title: "Spotify Wrapped"
 description: |
   Full Text Analysis of My Personal Spotify Data
 author: Thomas Matheis
@@ -32,17 +32,19 @@ After viewing my 2024 Spotify Wrapped (pictured above), I questioned the validit
 First, I merged the set of three JSON files I received, and converted them into a single csv file to make it easier to work with, reading the csv into a data table:
 
 ```{r}
-df1 <- fromJSON("StreamingHistory_music_0.json")
+#| code-fold: true
+#| code-summary: "Show the code"
+
+df1 <- fromJSON("StreamingHistory_music_0.json")                    #Importing the .JSON files
 df2 <- fromJSON("StreamingHistory_music_1.json")
 df3 <- fromJSON("StreamingHistory_music_2.json")
 
 merged_df <- bind_rows(df1, df2, df3)
 
-write.csv(merged_df, "spotify_data.csv", row.names = FALSE)
+write.csv(merged_df, "spotify_data.csv", row.names = FALSE)         #Writing as a single .csv file 
 spotify_csv <- read_csv("spotify_data.csv")
 spotify_data <- spotify_csv |> mutate(endTime = as.Date(endTime))
 head(spotify_data, 5)
-
 ```
 
 It can be seen that the "artistsName" and "trackName" variables both contain character strings, which is what we'll be working with. Just to simplify things, I converted the "endTime" variable from \<S3: POSIXct\> to \<date\>. The variable "msPlayed" contains \<dbl\> values which measure the time listened to a song measured in milliseconds.
@@ -54,8 +56,11 @@ One observation I made in the dataset was that many songs have a feature artist,
 First, let's look at some examples of what this looks like, using str_detect:
 
 ```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+
 feature_example <- spotify_data |>
-  filter(str_detect(trackName,"\\(feat.*\\)")) |>
+  filter(str_detect(trackName,"\\(feat.*\\)")) |>    #Filters to show strings including "feat."
   select(artistName, trackName)
 head(feature_example, 5)
 ```
@@ -71,17 +76,23 @@ spotify_data_nofeat <- spotify_data |>
 Using the same five songs as before, we can now show how the features have been removed:
 
 ```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+
 feature_example1 <- spotify_data_nofeat |>
   filter(str_detect(trackName, "Neon Guts|Space Cadet|Too Many Nights|P power|Drowning")) |>
-  select(artistName, trackName)
+  select(artistName, trackName)   #Selecting the same example used before
 head(feature_example1,5)
 ```
 Boom! No features! Let's look at some rows in the data and see if it looks better:
 
 ```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+
 feature_example2 <- spotify_data_nofeat |>
   select(artistName, trackName)
-feature_example2[41:47,]
+feature_example2[41:47,]          #A random selection of data
 ```
 
 Uh oh! We didn't account for features that use "with" instead of "feat." Also, we can see that some songs use brackets while others use parenthesis. We can use lookarounds and some more regular expressions to account for the variations of "with" that song titles use:
@@ -95,9 +106,12 @@ spotify_data_nofeat <- spotify_data_nofeat |>
 The escapes make it look a little messy, but this uses a positive lookbehind to check for a space before matching any text in parenthesis, brackets, or simply "with" with any spaces around it. We replace all of the matches to this pattern with an empty space. Here's our example again, displaying the updated results:
 
 ```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+
 feature_example2 <- spotify_data_nofeat |>
   select(artistName, trackName)
-feature_example2[41:47,]
+feature_example2[41:47,]        #Same example as before
 ```
 
 This looks much cleaner now. 
@@ -117,6 +131,9 @@ msPlayed_artist <- spotify_data_nofeat |>
 Time to graph:
 
 ```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+
 ggplot(msPlayed_artist, aes(x = fct_reorder(artistName, total_msPlayed), y = total_msPlayed, fill = artistName)) +
   geom_bar(stat = "identity") +
   labs(
@@ -124,7 +141,9 @@ ggplot(msPlayed_artist, aes(x = fct_reorder(artistName, total_msPlayed), y = tot
     y = "Total Listening Time (ms)",
     title = "My Top Five Spotify Artists by Listening Time",
     fill = "Artist"
-  ) + coord_flip()
+  ) + 
+  coord_flip() +
+  theme_minimal(base_family = "Palatino")
 ```
 Well that's odd, it looks like my order doesn't match with what Spotify told me. Twenty One Pilots has significantly more total listening time than Dominic Fike, yet Dominic Fike appears first on the official list.
 
@@ -141,6 +160,9 @@ total_songs_artist <- spotify_data_nofeat |>
 Once again graphing:
 
 ```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+
 ggplot(total_songs_artist, aes(x = fct_reorder(artistName, total_songs), y = total_songs, fill = artistName)) +
   geom_bar(stat = "identity") +
   labs(
@@ -148,13 +170,18 @@ ggplot(total_songs_artist, aes(x = fct_reorder(artistName, total_songs), y = tot
     y = "Total Songs Played",
     title = "My Top Five Spotify Artists by Total Songs Played",
     fill = "Artist"
-  ) + coord_flip()
+  ) + 
+  coord_flip() +
+  theme_minimal(base_family = "Palatino")
 ```
 
 Well, at least this tells us that something isn't quite right with how Spotify determines a user's top artists. Our top 5 artists measured by total songs played is in the same order as when we measure by total listening time, however this time Twenty One Pilots and Dominic Fike are much closer. This tells me that Drake for sure belonged on my Spotify Wrapped, as he ranked 3rd in total songs played and total listening time. I also confirmed my suspicion that I listened to more Twenty One Pilots than any other artist, especially when looking at listening time. One reason for the discrepancy could be the time frame that Spotify uses. My data begins in November of 2023 and ends in November of 2024. It could be possible that Spotify uses data beginning on January 1st of each year. We can use only the songs from January 1st and onwards to see if it significantly changes our results.
 
 Repeating the process for listening time:
 ```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+
 spotify_2024_only1 <- spotify_data_nofeat |>
   filter(endTime >= "2024-01-01") |>
   group_by(artistName) |>
@@ -169,11 +196,16 @@ ggplot(spotify_2024_only1, aes(x = fct_reorder(artistName, total_msPlayed), y = 
     y = "Total Listening Time (ms)",
     title = "My Top Five Spotify Artists by Listening Time for 2024",
     fill = "Artist"
-  ) + coord_flip()
+  ) + 
+  coord_flip() +
+  theme_minimal(base_family = "Palatino")
 ```
 
 Repeating the process for total songs played:
 ```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+
 spotify_2024_only2 <- spotify_data_nofeat |>
   filter(endTime >= "2024-01-01") |>
   group_by(artistName) |>
@@ -188,7 +220,9 @@ ggplot(spotify_2024_only2, aes(x = fct_reorder(artistName, total_songs), y = tot
     y = "Total Songs Played",
     title = "My Top Five Spotify Artists by Total Songs Played for 2024",
     fill = "Artist"
-  ) + coord_flip()
+  ) + 
+  coord_flip() +
+  theme_minimal(base_family = "Palatino")
 ```
 
 This data is closer to the official Spotify Wrapped, though still not quite right. When looking at total listening time for 2024, Don Toliver pushes his way up to third on the list, which is where he was officialy ranked. However, when looking at total songs played for 2024, the only time Dominic Fike has outranked Twenty One Pilots, Don Toliver falls places fifth by almost 500 songs.

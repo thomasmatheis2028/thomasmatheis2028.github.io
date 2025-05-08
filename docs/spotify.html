@@ -10,7 +10,7 @@
 <meta name="dcterms.date" content="2025-03-02">
 <meta name="description" content="Full Text Analysis of My Personal Spotify Data">
 
-<title>Spotify – Thomas Matheis</title>
+<title>Spotify Wrapped – Thomas Matheis</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -130,17 +130,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-data-viz" role="link" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Data Viz</span>
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-data-vizualization" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Data Vizualization</span>
     </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-data-viz">    
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-data-vizualization">    
         <li>
     <a class="dropdown-item" href="./starbucks.html">
- <span class="dropdown-text">Starbucks</span></a>
+ <span class="dropdown-text">Starbucks Beverages</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./ufo.html">
  <span class="dropdown-text">UFO Sightings</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./athletics.html">
+ <span class="dropdown-text">Pomona-Pitzer Athletic Spending</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./registration.html">
+ <span class="dropdown-text">5C Pre-Registration</span></a>
   </li>  
     </ul>
   </li>
@@ -151,18 +159,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="dropdown-menu" aria-labelledby="nav-menu-text-analysis">    
         <li>
     <a class="dropdown-item" href="./spotify.html">
- <span class="dropdown-text">Spotify</span></a>
+ <span class="dropdown-text">Spotify Wrapped Analysis</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-simulation-study" role="link" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Simulation Study</span>
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-statistical-simulations" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Statistical Simulations</span>
     </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-simulation-study">    
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-statistical-simulations">    
         <li>
     <a class="dropdown-item" href="./test.html">
  <span class="dropdown-text">Guessing on a Test</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./hockey.html">
+ <span class="dropdown-text">Hockey Player Birth Months</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./runners.html">
+ <span class="dropdown-text">Start-Line Positions</span></a>
   </li>  
     </ul>
   </li>
@@ -173,7 +189,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="dropdown-menu" aria-labelledby="nav-menu-data-science-ethics">    
         <li>
     <a class="dropdown-item" href="./ethics.html">
- <span class="dropdown-text">Poorly Anonymized Data</span></a>
+ <span class="dropdown-text">Poorly Anonymized NYC Taxi Data</span></a>
   </li>  
     </ul>
   </li>
@@ -184,10 +200,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="dropdown-menu" aria-labelledby="nav-menu-sql">    
         <li>
     <a class="dropdown-item" href="./policing.html">
- <span class="dropdown-text">Police Traffic Stops</span></a>
+ <span class="dropdown-text">Analyzing United States Policing Data</span></a>
   </li>  
     </ul>
   </li>
+  <li class="nav-item">
+    <a class="nav-link" href="./presentation.html"> 
+<span class="menu-text">Presentation</span></a>
+  </li>  
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
@@ -207,7 +227,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Spotify</h1>
+<h1 class="title">Spotify Wrapped</h1>
 </div>
 
 <div>
@@ -253,16 +273,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>After viewing my 2024 Spotify Wrapped (pictured above), I questioned the validity of the results that were displayed. Was Drake really one of my top artists? Did I really listen to Dominic Fike more than Twenty One Pilots? Using Spotify’s “Data Request” feature, I was able to receive copies of my streaming history from November 4th, 2023 to November 4th, 2024.</p>
 <p>First, I merged the set of three JSON files I received, and converted them into a single csv file to make it easier to work with, reading the csv into a data table:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>df1 <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(<span class="st">"StreamingHistory_music_0.json"</span>)</span>
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>df1 <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(<span class="st">"StreamingHistory_music_0.json"</span>)                    <span class="co">#Importing the .JSON files</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>df2 <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(<span class="st">"StreamingHistory_music_1.json"</span>)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>df3 <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(<span class="st">"StreamingHistory_music_2.json"</span>)</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>merged_df <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(df1, df2, df3)</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(merged_df, <span class="st">"spotify_data.csv"</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(merged_df, <span class="st">"spotify_data.csv"</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)         <span class="co">#Writing as a single .csv file </span></span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>spotify_csv <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"spotify_data.csv"</span>)</span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>spotify_data <span class="ot">&lt;-</span> spotify_csv <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">endTime =</span> <span class="fu">as.Date</span>(endTime))</span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(spotify_data, <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 4
   endTime    artistName        trackName      msPlayed
@@ -279,10 +302,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>One observation I made in the dataset was that many songs have a feature artist, and therefore have “(feat. ‘artist name’)” in the title. We can clean the dataset by removing the features from the track names!</p>
 <p>First, let’s look at some examples of what this looks like, using str_detect:</p>
 <div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>feature_example <span class="ot">&lt;-</span> spotify_data <span class="sc">|&gt;</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(trackName,<span class="st">"</span><span class="sc">\\</span><span class="st">(feat.*</span><span class="sc">\\</span><span class="st">)"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(trackName,<span class="st">"</span><span class="sc">\\</span><span class="st">(feat.*</span><span class="sc">\\</span><span class="st">)"</span>)) <span class="sc">|&gt;</span>    <span class="co">#Filters to show strings including "feat."</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(artistName, trackName)</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(feature_example, <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 2
   artistName             trackName                                        
@@ -302,10 +328,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Using the same five songs as before, we can now show how the features have been removed:</p>
 <div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>feature_example1 <span class="ot">&lt;-</span> spotify_data_nofeat <span class="sc">|&gt;</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(trackName, <span class="st">"Neon Guts|Space Cadet|Too Many Nights|P power|Drowning"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(artistName, trackName)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(artistName, trackName)   <span class="co">#Selecting the same example used before</span></span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(feature_example1,<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 2
   artistName             trackName      
@@ -319,9 +348,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Boom! No features! Let’s look at some rows in the data and see if it looks better:</p>
 <div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>feature_example2 <span class="ot">&lt;-</span> spotify_data_nofeat <span class="sc">|&gt;</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(artistName, trackName)</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>feature_example2[<span class="dv">41</span><span class="sc">:</span><span class="dv">47</span>,]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>feature_example2[<span class="dv">41</span><span class="sc">:</span><span class="dv">47</span>,]          <span class="co">#A random selection of data</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 7 × 2
   artistName             trackName                                              
@@ -343,9 +375,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>The escapes make it look a little messy, but this uses a positive lookbehind to check for a space before matching any text in parenthesis, brackets, or simply “with” with any spaces around it. We replace all of the matches to this pattern with an empty space. Here’s our example again, displaying the updated results:</p>
 <div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>feature_example2 <span class="ot">&lt;-</span> spotify_data_nofeat <span class="sc">|&gt;</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(artistName, trackName)</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>feature_example2[<span class="dv">41</span><span class="sc">:</span><span class="dv">47</span>,]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>feature_example2[<span class="dv">41</span><span class="sc">:</span><span class="dv">47</span>,]        <span class="co">#Same example as before</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 7 × 2
   artistName             trackName
@@ -371,6 +406,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Time to graph:</p>
 <div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(msPlayed_artist, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">fct_reorder</span>(artistName, total_msPlayed), <span class="at">y =</span> total_msPlayed, <span class="at">fill =</span> artistName)) <span class="sc">+</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>) <span class="sc">+</span></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
@@ -378,7 +415,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Total Listening Time (ms)"</span>,</span>
 <span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"My Top Five Spotify Artists by Listening Time"</span>,</span>
 <span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"Artist"</span></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span> <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span> </span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_family =</span> <span class="st">"Palatino"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -398,6 +438,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Once again graphing:</p>
 <div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(total_songs_artist, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">fct_reorder</span>(artistName, total_songs), <span class="at">y =</span> total_songs, <span class="at">fill =</span> artistName)) <span class="sc">+</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>) <span class="sc">+</span></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
@@ -405,7 +447,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Total Songs Played"</span>,</span>
 <span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"My Top Five Spotify Artists by Total Songs Played"</span>,</span>
 <span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"Artist"</span></span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span> <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span> </span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_family =</span> <span class="st">"Palatino"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -417,6 +462,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Well, at least this tells us that something isn’t quite right with how Spotify determines a user’s top artists. Our top 5 artists measured by total songs played is in the same order as when we measure by total listening time, however this time Twenty One Pilots and Dominic Fike are much closer. This tells me that Drake for sure belonged on my Spotify Wrapped, as he ranked 3rd in total songs played and total listening time. I also confirmed my suspicion that I listened to more Twenty One Pilots than any other artist, especially when looking at listening time. One reason for the discrepancy could be the time frame that Spotify uses. My data begins in November of 2023 and ends in November of 2024. It could be possible that Spotify uses data beginning on January 1st of each year. We can use only the songs from January 1st and onwards to see if it significantly changes our results.</p>
 <p>Repeating the process for listening time:</p>
 <div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>spotify_2024_only1 <span class="ot">&lt;-</span> spotify_data_nofeat <span class="sc">|&gt;</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(endTime <span class="sc">&gt;=</span> <span class="st">"2024-01-01"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(artistName) <span class="sc">|&gt;</span></span>
@@ -431,7 +478,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Total Listening Time (ms)"</span>,</span>
 <span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"My Top Five Spotify Artists by Listening Time for 2024"</span>,</span>
 <span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"Artist"</span></span>
-<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span> <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span> </span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_family =</span> <span class="st">"Palatino"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -442,6 +492,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Repeating the process for total songs played:</p>
 <div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>spotify_2024_only2 <span class="ot">&lt;-</span> spotify_data_nofeat <span class="sc">|&gt;</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(endTime <span class="sc">&gt;=</span> <span class="st">"2024-01-01"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(artistName) <span class="sc">|&gt;</span></span>
@@ -456,7 +508,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Total Songs Played"</span>,</span>
 <span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"My Top Five Spotify Artists by Total Songs Played for 2024"</span>,</span>
 <span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"Artist"</span></span>
-<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span> <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span> </span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_family =</span> <span class="st">"Palatino"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">

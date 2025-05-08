@@ -10,9 +10,12 @@ execute:
   message: false
 ---
 
-This data set consists of over 80,000 documented UFO sightings all over the world. Some variables include country, region, city, time, shape, and length of encounter. This graph compares the number of encounters between each country in the data set, highlighting the stark difference between the amount of sightings in the United States compared to everyone else. 
+This data set consists of over 80,000 documented UFO sightings all over the world. Some variables include country, region, city, time, shape, and length of encounter. This graph compares the number of encounters between each country in the data set, highlighting the stark difference between the amount of sightings in the United States compared to everyone else.
 
-```{r echo = FALSE}
+```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+
 library(tidyverse)
 ufo <- readr::read_csv("ufo_sightings.csv")
 ggplot(ufo, aes(x = country, fill = country)) +
@@ -23,10 +26,8 @@ ggplot(ufo, aes(x = country, fill = country)) +
     title = "Number of UFO Sightings by Country",
     subtitle = "n > 80,000",
     fill = "Country"
-  ) + theme_minimal()
+  ) + theme_minimal(base_family = "Palatino")
 ```
 
-The TidyTuesday data can be found at: https://github.com/rfordatascience/tidytuesday/tree/main/data/2019/2019-06-25 
-
-The original data set, from NUFORC (The National UFO Reporting Center), can be found at:
-https://nuforc.org/databank/
+The TidyTuesday data can be found at: https://github.com/rfordatascience/tidytuesday/tree/main/data/2019/2019-06-25\
+This project utilized a data set uploaded to GitHub by Sigmond Axel, who had cleaned the raw data from NUFORC (The National UFO Reporting Center), which can be found at: https://nuforc.org/databank/

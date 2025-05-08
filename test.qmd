@@ -17,12 +17,15 @@ library(tidyverse)
 Many students have considered the option at once in their academic careers: "Do I simply just guess on every question of the test?" While achieving a perfect score by guessing on a test is an amazing feat, it is pretty simple to calculate. Assuming multiple-choice tests with 4 choices for each question and 10 questions, this simulation study will determine the probability of passing a test by guessing on every question. In this scenario, passing will be considered a C- (70%) or above. The function will return True or False depending on whether or not the test passed. Using a logical map, the function will be iterated 1000 times to determine a probability of passing.
 
 ```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+
 test <- function(questions, choices, grade){
   num_correct <- sum(sample(1:choices, questions, replace = TRUE) == 1) 
   return((num_correct / questions) >= grade)
 }
 
-set.seed(47)
+set.seed(47)    #Setting seed for reproducibility
 test_simulation <- map_lgl(1:1000, ~ test(10, 4, .7)) |>
   mean() |>
   print()
@@ -33,6 +36,9 @@ For this simulation, 7 out of 1000 tests passed when guessing on all 10 question
 10 Questions, 4 Choices, 60% to Pass:
 
 ```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+
 set.seed(47)
 test_simulation <- map_lgl(1:1000, ~ test(10, 4, .6)) |>
   mean() |>
@@ -44,6 +50,9 @@ A little better, 2.6% chance of passing, but only if you're OK with a 60%.
 20 Questions, 4 Choices, 60% to Pass:
 
 ```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+
 set.seed(47)
 test_simulation <- map_lgl(1:1000, ~ test(20, 4, .6)) |>
   mean() |>
@@ -55,6 +64,9 @@ Yikes, just increasing the number of questions to 20 decreases the probability t
 Here is a plot displaying how the number of questions affects the probability of passing, when only 60% is needed to pass:
 
 ```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+
 #Re-writing our test_simulation as a function
 
 pass_probability <- function(num_questions, num_simulations, num_choices, pct_grade){
@@ -70,7 +82,7 @@ results_table <- tibble(results) |>
   as.data.frame()
 
 ggplot(results_table, aes(x = questions, y = results)) +
-  geom_smooth(se = FALSE) +
+  geom_smooth(se = FALSE, method = "loess", formula = y ~ x) +
   geom_point() +
   geom_line() +
   labs(
@@ -78,7 +90,7 @@ ggplot(results_table, aes(x = questions, y = results)) +
     y = "Probability of Passing",
     title = "Probability of Passing a Test by Guessing"
   ) +
-  theme_minimal()
+  theme_minimal(base_family = "Palatino")
 ```
 
 As seen above, as the number of questions on a test increases, the probability of passing a test by guessing on every question decreases significantly. For any number of questions beyond 10, it becomes extremely close to 0. The blue line represents the overall trend in the data.

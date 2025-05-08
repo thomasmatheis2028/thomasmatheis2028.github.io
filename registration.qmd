@@ -1,0 +1,103 @@
+---
+title: "5C Fall 2025 Pre-Registration"
+description: |
+  Visualization of Closed Courses Over Time at the Claremont Colleges
+author: Thomas Matheis
+date: May 7, 2025
+format: html
+execute:
+  warning: false
+  message: false
+---
+
+```{r, echo = FALSE}
+library(tidyverse)
+```
+
+This data was gathered over the course of pre-registration week at the Claremont Colleges, from April 22, 2025, to April 24, 2025. Variables included with the data were the course name and code, the timestamp the data was collected, the number of seats filled, and other information about the course such as the subject, area, campus, department, and number of credits. The first graph shows how the rate at which courses became closed increased each day. The second plot simply visualizes the number of full-credit courses offered at each campus of the Claremont Colleges, highlighting the differences in size. For more information about the Fall 2025 pre-registration at the Claremont Colleges, check out the article, "Spring 2025 pre-registration wrapped," written by Brecken Enright, Jessica Levin, and myself, published by The Student Life.
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+
+fulldf <- read_csv("/Users/tommy/Desktop/TSL/Registration/Tommy_Registration/spring-registration-2025-full.csv")
+
+num_closed <- fulldf |>
+  group_by(DateTime) |>
+  summarize(closed = sum((course_status == "C") & (seats_filled >= seats_total)))
+
+start <- as.POSIXct("2025-04-22 08:00:00",
+                    tz = "America/Los_Angeles")
+
+
+ggplot(num_closed, aes(x = DateTime, y = closed)) +
+  geom_line(color = "blue", linewidth = 1.7) +
+  geom_vline(xintercept = as.POSIXct("2025-04-22 08:00:00", tz = "America/Los_Angeles"), color = "red", linetype = "dashed") +
+  annotate("text",
+           x = as.POSIXct("2025-04-22 9:00:00",
+                          tz = "America/Los_Angeles"),
+           y = 700,            
+           label = "Start of Senior \nRegistration", hjust = 0, size = 3.5, family = "Palatino") +
+  geom_vline(xintercept = as.POSIXct("2025-04-23 08:00:00", tz = "America/Los_Angeles"), color = "red", linetype = "dashed") +
+  annotate("text",
+           x = as.POSIXct("2025-04-23 9:00:00",
+                          tz = "America/Los_Angeles"),
+           y = 700,            
+           label = "Start of Sophomore \nRegistration", hjust = 0, size = 3.5, family = "Palatino") +
+  geom_vline(xintercept = as.POSIXct("2025-04-24 08:00:00", tz = "America/Los_Angeles"), color = "red", linetype = "dashed") +
+  annotate("text",
+           x = as.POSIXct("2025-04-24 9:00:00",
+                          tz = "America/Los_Angeles"),
+           y = 700,            
+           label = "Start of Freshmen \nRegistration", hjust = 0, size = 3.5, family = "Palatino") +
+  scale_y_continuous(limits = c(0, 750),
+                     breaks  = seq(0, 750, by = 100)) +
+  scale_x_datetime(
+    breaks = seq(from   = start,
+                 to     = max(num_closed$DateTime),   # or a hard date
+                 by     = "8 hours"),
+    timezone     = "America/Los_Angeles",   # <-- converts tick labels
+    date_labels  = "%b %d\n%I:%M %p"           # e.g. "Apr 23\n01:00"
+  ) +
+  labs(
+    x = "",
+    y = "Number of Courses",
+    title = "Courses Closed During Fall 2025 Pre-Registration"
+  ) +
+  theme_minimal(base_family = "Palatino") +
+  theme(plot.title = element_text(size = 18))
+```
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+
+num_courses <- fulldf |>
+  filter((campus == "HM" & credits == 3.00) | (campus != "HM" & credits == 1.00)) |>
+  group_by(campus) |>
+  summarize(num_courses = (n_distinct(course_code))) |>
+  filter(campus != "CG")
+  
+ggplot(num_courses, aes(x = campus, y = num_courses, fill = campus)) +
+  geom_bar(stat = "identity") +
+  scale_fill_manual(
+    values = c(
+      "CM" = "#981a31", 
+      "HM" = "#FDB913",
+      "PO" = "#0057b8", 
+      "PZ" = "#f7941d",
+      "SC" = "#34715B"
+    ),
+    name = "Campus"
+  ) +
+  scale_x_discrete(labels = c("CM" = "Claremont McKenna", "HM" = "Harvey Mudd", "PO" = "Pomona", "PZ" = "Pitzer", "SC" = "Scripps")) +
+  labs(
+    x = "", y = "Number of Courses",
+    title = "Number of Full-Credit Courses Offered by Campus",
+    subtitle = "Fall 2025"
+  ) +
+  theme_minimal(base_family = "Palatino") +
+  theme(plot.title = element_text(size = 18))
+```
+
+Enright, Brecken. Levin, Jessica. Matheis, Tommy. 2025. "Spring 2025 pre-registration wrapped." The Student Life Newspaper, April 25. https://tsl.news/spring-2025-pre-registration-wrapped/.
