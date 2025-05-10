@@ -137,61 +137,6 @@ ggplot(data_plot, aes(x = Quarter, y = Count, fill = Type)) +
 ```
 
 
-## Histogram of Results
-
-```{r, echo=FALSE}
-n <- 88 # data analysis for real data
-p <- 0.25
-mu <- n*p
-sigma <- sqrt(mu*(1-p))
-
-z1 <- (26 - mu) / sigma
-z2 <- (36 - mu) / sigma
-z3 <- (12 - mu) / sigma
-z4 <- (14 - mu) / sigma
-real_sum_z_sq <- (z1)^2 + (z2)^2 + (z3)^2 + (z4)^2
-```
-
-```{r, echo=FALSE}
-sim_df <- as.data.frame(sim)      # making data table with the given simulated data "sim"
-
-sim_df <- sim_df |> 
-  mutate(sim_num = row_number()) |>
-  pivot_longer(cols = -sim_num, names_to = "quarter", values_to = "count") |>
-  mutate(z_score = (count-mu)/sigma, z_score_squared = z_score^2)
-
-sim_summary <- sim_df |>
-  group_by(sim_num) |>
-  summarize(sum_z_squared = sum(z_score_squared))
-
-p_value <- mean(sim_summary$sum_z_squared >= real_sum_z_sq)
-```
-
-```{r, eval=FALSE}
-# Histogram of simulated sum of squared Z-scores
-
-ggplot(sim_summary, aes(x = sum_z_squared)) +
-  geom_histogram(binwidth = 1, fill = "skyblue", color = "black", alpha = 0.7) +
-  geom_vline(xintercept = real_sum_z_sq, color = "red", linetype = "dashed") +
-  labs(title = "Simulated Distribution of Sum of Squared Z-Scores", 
-       x = "Sum of Squared Z-Scores", 
-       y = "Count") +
-  theme_minimal(base_family = "Palatino")
-```
-
-##  
-
-```{r, echo=FALSE}
-ggplot(sim_summary, aes(x = sum_z_squared)) +
-  geom_histogram(binwidth = 1, fill = "skyblue", color = "black", alpha = 0.7) +
-  geom_vline(xintercept = real_sum_z_sq, color = "red", linetype = "dashed") +
-  labs(title = "Simulated Distribution of Sum of Squared Z-Scores", 
-       x = "Sum of Squared Z-Scores", 
-       y = "Count") +
-  theme_minimal(base_family = "Palatino")
-```
-
-
 ## Analyzing Average Lag-Time Between Local and Non-Local Runners
 
 ```{r, echo=FALSE}
@@ -240,63 +185,17 @@ ggplot(TMR.mini, aes(x=DMV, y=lag, fill=DMV)) +
 ```
 
 
-## Plot of Randomization Test Results
-
-```{r, echo=FALSE}
-null.sim <- c()
-for (i in 1:1000) {
-tmr.mini.sim <- data.frame(DMV1=TMR.mini$DMV, lag1=sample(TMR.mini$lag))
-local_mean <- tmr.mini.sim$lag1[tmr.mini.sim$DMV1==TRUE]
-nonlocal_mean <- tmr.mini.sim$lag1[tmr.mini.sim$DMV1==FALSE]
-null.sim[i] <- mean(local_mean) - mean(nonlocal_mean)
-}
-
-p_value <- mean(null.sim >= 69.75)
-```
-
-```{r, eval=FALSE}
-#Utilizing a given data set "null.sim"
-
-ggplot(as.data.frame(null.sim), aes(x = null.sim)) +
-  geom_histogram(binwidth = 45, color = "black", fill = "skyblue") +
-  geom_vline(xintercept = 69.75, color = "red") +
-  labs(
-    x = "Difference in Means",
-    y = "Frequency",
-    title = "Randomization Test",
-    subtitle = "n = 1000"
-  ) + theme_minimal(base_family = "Palatino")
-```
-
-##  
-
-```{r, echo=FALSE}
-ggplot(as.data.frame(null.sim), aes(x = null.sim)) +
-  geom_histogram(binwidth = 45, color = "black", fill = "skyblue") +
-  geom_vline(xintercept = 69.75, color = "red") +
-  labs(
-    x = "Difference in Means",
-    y = "Frequency",
-    title = "Randomization Test",
-    subtitle = "n = 1000"
-  ) + theme_minimal(base_family = "Palatino")
-```
-
-
 ## Pomona-Pitzer Athletics Spending
 
 ```{r, echo=FALSE}
 ppeada <- read_csv("/Users/tommy/Desktop/Intro to Stats/Intro to Stats/ppeada.csv")
 ppeada23 <- read_csv("/Users/tommy/Desktop/Intro to Stats/Intro to Stats/ppeada23.csv")
-
+```
+```{r}
 ppeada1 <- ppeada |> 
   filter(sport != "Baseball", sport != "Football", sport != "Softball", sport != "Volleyball", sport != "Lacrosse")
 ppeada2 <- ppeada23 |> 
   filter(sport != "Baseball", sport != "Football", sport != "Softball", sport != "Volleyball", sport != "Lacrosse")
-```
-
-```{r, eval=FALSE}
-#Using a data set of spending per sport
 
 ggplot(ppeada2, aes(x = sport, y = expenses, fill = sex)) +
   geom_bar(stat = "identity", position = "fill") +

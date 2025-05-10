@@ -70,13 +70,6 @@
     "text": "Plotting Observed Data vs Simulated Data\n\n# Create a data frame for observed vs. expected counts\nobserved_counts &lt;- c(26, 36, 12, 14)\nexpected_counts &lt;- rep(88 / 4, 4)\nquarters &lt;- c(\"Q1\", \"Q2\", \"Q3\", \"Q4\")\n\ndata_plot &lt;- data.frame(\n  Quarter = rep(quarters, 2),\n  Count = c(observed_counts, expected_counts),\n  Type = rep(c(\"Observed\", \"Expected\"), each = 4)\n)\n\n\n#Plot the bar char\nggplot(data_plot, aes(x = Quarter, y = Count, fill = Type)) +\n  geom_bar(stat = \"identity\", position = \"dodge\") +\n  labs(title = \"Observed vs. Expected Player Birth Distribution\", \n       x = \"Birth Quarter\", \n       y = \"Number of Players\") +\n  scale_fill_manual(values=c(\"orange\",\"skyblue\"),\n                    labels=c(\"Expected\",\"Observed\")) +\n  theme_minimal(base_family = \"Palatino\")"
   },
   {
-    "objectID": "presentation.html#histogram-of-results",
-    "href": "presentation.html#histogram-of-results",
-    "title": "How I Have Used Data Science",
-    "section": "Histogram of Results",
-    "text": "Histogram of Results\n\n# Histogram of simulated sum of squared Z-scores\n\nggplot(sim_summary, aes(x = sum_z_squared)) +\n  geom_histogram(binwidth = 1, fill = \"skyblue\", color = \"black\", alpha = 0.7) +\n  geom_vline(xintercept = real_sum_z_sq, color = \"red\", linetype = \"dashed\") +\n  labs(title = \"Simulated Distribution of Sum of Squared Z-Scores\", \n       x = \"Sum of Squared Z-Scores\", \n       y = \"Count\") +\n  theme_minimal(base_family = \"Palatino\")"
-  },
-  {
     "objectID": "presentation.html#analyzing-average-lag-time-between-local-and-non-local-runners",
     "href": "presentation.html#analyzing-average-lag-time-between-local-and-non-local-runners",
     "title": "How I Have Used Data Science",
@@ -84,18 +77,11 @@
     "text": "Analyzing Average Lag-Time Between Local and Non-Local Runners\n\n#Utilizing a given data set \"TMR.mini\"\n\nggplot(TMR.mini, aes(x=DMV, y=lag, fill=DMV)) +\n  geom_boxplot() +\n  labs(title=\"Comparison of Lag Times by Runner Origin\",\n       subtitle = \"n = 20 local, n = 10 non-local\",\n       x=\"Local?\",\n       y=\"Lag (seconds)\") +\n  scale_fill_manual(values=c(\"orange\",\"skyblue\"),\n                    labels=c(\"Non-local\",\"Local\")) +\n  theme_minimal(base_family = \"Palatino\")"
   },
   {
-    "objectID": "presentation.html#plot-of-randomization-test-results",
-    "href": "presentation.html#plot-of-randomization-test-results",
-    "title": "How I Have Used Data Science",
-    "section": "Plot of Randomization Test Results",
-    "text": "Plot of Randomization Test Results\n\n#Utilizing a given data set \"null.sim\"\n\nggplot(as.data.frame(null.sim), aes(x = null.sim)) +\n  geom_histogram(binwidth = 45, color = \"black\", fill = \"skyblue\") +\n  geom_vline(xintercept = 69.75, color = \"red\") +\n  labs(\n    x = \"Difference in Means\",\n    y = \"Frequency\",\n    title = \"Randomization Test\",\n    subtitle = \"n = 1000\"\n  ) + theme_minimal(base_family = \"Palatino\")"
-  },
-  {
     "objectID": "presentation.html#pomona-pitzer-athletics-spending",
     "href": "presentation.html#pomona-pitzer-athletics-spending",
     "title": "How I Have Used Data Science",
     "section": "Pomona-Pitzer Athletics Spending",
-    "text": "Pomona-Pitzer Athletics Spending\n\n#Using a data set of spending per sport\n\nggplot(ppeada2, aes(x = sport, y = expenses, fill = sex)) +\n  geom_bar(stat = \"identity\", position = \"fill\") +\n  scale_fill_manual(\n    values = c(\n      \"M\"   = \"#0057b8\",   \n      \"F\" = \"#f7941d\"    \n    ),\n    name = \"Team\"\n  ) +\n  scale_y_continuous(labels = scales::percent_format(accuracy = 1)) +\n  labs(\n    x = \"\", y = \"Proportion of Funding\",\n    title = \"Proportions of Funding Between Men's and Women's Teams by Sport\",\n    subtitle = \"2022-2023\"\n  ) +\n  theme_minimal(base_family = \"Palatino\")"
+    "text": "Pomona-Pitzer Athletics Spending\n\nppeada1 &lt;- ppeada |&gt; \n  filter(sport != \"Baseball\", sport != \"Football\", sport != \"Softball\", sport != \"Volleyball\", sport != \"Lacrosse\")\nppeada2 &lt;- ppeada23 |&gt; \n  filter(sport != \"Baseball\", sport != \"Football\", sport != \"Softball\", sport != \"Volleyball\", sport != \"Lacrosse\")\n\nggplot(ppeada2, aes(x = sport, y = expenses, fill = sex)) +\n  geom_bar(stat = \"identity\", position = \"fill\") +\n  scale_fill_manual(\n    values = c(\n      \"M\"   = \"#0057b8\",   \n      \"F\" = \"#f7941d\"    \n    ),\n    name = \"Team\"\n  ) +\n  scale_y_continuous(labels = scales::percent_format(accuracy = 1)) +\n  labs(\n    x = \"\", y = \"Proportion of Funding\",\n    title = \"Proportions of Funding Between Men's and Women's Teams by Sport\",\n    subtitle = \"2022-2023\"\n  ) +\n  theme_minimal(base_family = \"Palatino\")"
   },
   {
     "objectID": "presentation.html#pomona-pitzer-athletics-spending-1",
