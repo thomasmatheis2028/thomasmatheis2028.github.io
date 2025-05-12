@@ -261,7 +261,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>Every Day, police officers throughout the United States make thousands of traffic stops, inderectly compiling millions of pieces of data over the courses of deacdes. The Standford Open Policing Project has 88 data tables, which consist of 42 states, various city police departments, and state patrol records. The data ranges from 1999 to 2020, depending on the table. In this brief analysis, we will look at data from Los Angeles, Chicago, and California State Patrol, gathering information regarding demographics, the violation committed, and frequency of traffic stops.</p>
+<p>Every Day, police officers throughout the United States make thousands of traffic stops, indirectly compiling millions of pieces of data over the courses of decades. The Stanford Open Policing Project has 88 data tables, which consist of 42 states, various city police departments, and state patrol records. The data ranges from 1999 to 2020, depending on the table. In this brief analysis, we will look at data from Los Angeles, Chicago, and California State Patrol, gathering information regarding demographics, the violation committed, and frequency of traffic stops.</p>
 <p>First, we will look at the demographic distribution over time for traffic stops conducted in the city of Los Angeles, California. While the data set includes information from December of 2009 to June of 2018, the range 2010 - 2017 was used to include all full years of data.</p>
 <div class="cell" data-output.var="race_table">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> raw_descent_description <span class="kw">AS</span> race,</span>
@@ -269,8 +269,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>       <span class="dt">YEAR</span>(<span class="dt">date</span>) <span class="kw">AS</span> <span class="dt">year</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> ca_los_angeles_2020_04_01</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> race, <span class="dt">year</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="kw">HAVING</span> <span class="dt">year</span> <span class="kw">BETWEEN</span> <span class="dv">2010</span> <span class="kw">and</span> <span class="dv">2017</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span> <span class="dt">year</span>, race;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="kw">HAVING</span> <span class="dt">year</span> <span class="kw">BETWEEN</span> <span class="dv">2010</span> <span class="kw">and</span> <span class="dv">2017</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <details class="code-fold">
@@ -303,15 +302,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>From 2010 to 2017, Hispanic individuals were stopped by police more frequently than any other race, with black and white individuals the next most frequent. Races makred as Asian, American Indian, and other were all stopped relatively infrequently. While some people may immediately conclude that police officers in Los Angeles are more likely to stop people of Hispanic descent, it is important to take into consideration the demographic composition of the city itself. The United States Census Bureau lists that Hispanic or Latino individuals make up about 48.6% of the population, more than any other race. The same report lists that white people make up about 25.3% of the population, while those of black descent make up about 9.0% of the population, both much lower than 48.6%.</p>
-<p>Next, we will investigate common traffic violations in Chicago, Illinois. There are dozens of possible violations, so only those with 40,000 or more occurances were taken into account, giving us the top ten most common violations.</p>
+<p>From 2010 to 2017, Hispanic individuals were stopped by police more frequently than any other race, with Black and White individuals the next most frequent. Races marked as Asian, American Indian, and other were all stopped relatively infrequently. While some people may immediately conclude that police officers in Los Angeles are more likely to stop people of Hispanic descent, it is important to take into consideration the demographic composition of the city itself. The United States Census Bureau lists that Hispanic or Latino individuals make up about 48.6% of the population, more than any other race. The same report lists that white people make up about 25.3% of the population, while those of Black descent make up about 9.0% of the population, both much lower than 48.6%.</p>
+<p>Next, we will investigate common traffic violations in Chicago, Illinois. There are dozens of possible violations, so only those with 40,000 or more occurrences were taken into account, giving us the top ten most common violations.</p>
 <div class="cell" data-output.var="violation_table">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> violation <span class="kw">AS</span> Violation,</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">count</span>(<span class="op">*</span>) <span class="kw">AS</span> <span class="fu">Count</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> il_chicago_2023_01_26</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> Violation</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="kw">HAVING</span> <span class="fu">Count</span> <span class="op">&gt;=</span> <span class="dv">40000</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span> <span class="fu">Count</span> <span class="kw">DESC</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span> <span class="fu">Count</span> <span class="kw">DESC</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="kw">LIMIT</span> <span class="dv">10</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <details class="code-fold">
@@ -323,23 +322,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>             <span class="at">subtitle =</span> <span class="fu">md</span>(<span class="st">"Dec 2011 - May 2020"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="ookmtaxaez" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#ookmtaxaez table {
+<div id="zdoeudqnxo" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#zdoeudqnxo table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#ookmtaxaez thead, #ookmtaxaez tbody, #ookmtaxaez tfoot, #ookmtaxaez tr, #ookmtaxaez td, #ookmtaxaez th {
+#zdoeudqnxo thead, #zdoeudqnxo tbody, #zdoeudqnxo tfoot, #zdoeudqnxo tr, #zdoeudqnxo td, #zdoeudqnxo th {
   border-style: none;
 }
 
-#ookmtaxaez p {
+#zdoeudqnxo p {
   margin: 0;
   padding: 0;
 }
 
-#ookmtaxaez .gt_table {
+#zdoeudqnxo .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -365,12 +364,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-left-color: #D3D3D3;
 }
 
-#ookmtaxaez .gt_caption {
+#zdoeudqnxo .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#ookmtaxaez .gt_title {
+#zdoeudqnxo .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -382,7 +381,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-width: 0;
 }
 
-#ookmtaxaez .gt_subtitle {
+#zdoeudqnxo .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -394,7 +393,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-top-width: 0;
 }
 
-#ookmtaxaez .gt_heading {
+#zdoeudqnxo .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -406,13 +405,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#ookmtaxaez .gt_bottom_border {
+#zdoeudqnxo .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#ookmtaxaez .gt_col_headings {
+#zdoeudqnxo .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -427,7 +426,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#ookmtaxaez .gt_col_heading {
+#zdoeudqnxo .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -447,7 +446,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   overflow-x: hidden;
 }
 
-#ookmtaxaez .gt_column_spanner_outer {
+#zdoeudqnxo .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -459,15 +458,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 4px;
 }
 
-#ookmtaxaez .gt_column_spanner_outer:first-child {
+#zdoeudqnxo .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#ookmtaxaez .gt_column_spanner_outer:last-child {
+#zdoeudqnxo .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#ookmtaxaez .gt_column_spanner {
+#zdoeudqnxo .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -479,11 +478,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   width: 100%;
 }
 
-#ookmtaxaez .gt_spanner_row {
+#zdoeudqnxo .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#ookmtaxaez .gt_group_heading {
+#zdoeudqnxo .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -509,7 +508,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   text-align: left;
 }
 
-#ookmtaxaez .gt_empty_group_heading {
+#zdoeudqnxo .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -524,15 +523,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   vertical-align: middle;
 }
 
-#ookmtaxaez .gt_from_md > :first-child {
+#zdoeudqnxo .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#ookmtaxaez .gt_from_md > :last-child {
+#zdoeudqnxo .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#ookmtaxaez .gt_row {
+#zdoeudqnxo .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -551,7 +550,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   overflow-x: hidden;
 }
 
-#ookmtaxaez .gt_stub {
+#zdoeudqnxo .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -564,7 +563,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#ookmtaxaez .gt_stub_row_group {
+#zdoeudqnxo .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -578,15 +577,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   vertical-align: top;
 }
 
-#ookmtaxaez .gt_row_group_first td {
+#zdoeudqnxo .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#ookmtaxaez .gt_row_group_first th {
+#zdoeudqnxo .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#ookmtaxaez .gt_summary_row {
+#zdoeudqnxo .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -596,16 +595,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#ookmtaxaez .gt_first_summary_row {
+#zdoeudqnxo .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#ookmtaxaez .gt_first_summary_row.thick {
+#zdoeudqnxo .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#ookmtaxaez .gt_last_summary_row {
+#zdoeudqnxo .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -615,7 +614,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-color: #D3D3D3;
 }
 
-#ookmtaxaez .gt_grand_summary_row {
+#zdoeudqnxo .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -625,7 +624,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#ookmtaxaez .gt_first_grand_summary_row {
+#zdoeudqnxo .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -635,7 +634,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-top-color: #D3D3D3;
 }
 
-#ookmtaxaez .gt_last_grand_summary_row_top {
+#zdoeudqnxo .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -645,11 +644,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-color: #D3D3D3;
 }
 
-#ookmtaxaez .gt_striped {
+#zdoeudqnxo .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#ookmtaxaez .gt_table_body {
+#zdoeudqnxo .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -658,7 +657,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-color: #D3D3D3;
 }
 
-#ookmtaxaez .gt_footnotes {
+#zdoeudqnxo .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -672,7 +671,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#ookmtaxaez .gt_footnote {
+#zdoeudqnxo .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -681,7 +680,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#ookmtaxaez .gt_sourcenotes {
+#zdoeudqnxo .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -695,7 +694,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#ookmtaxaez .gt_sourcenote {
+#zdoeudqnxo .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -703,72 +702,72 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#ookmtaxaez .gt_left {
+#zdoeudqnxo .gt_left {
   text-align: left;
 }
 
-#ookmtaxaez .gt_center {
+#zdoeudqnxo .gt_center {
   text-align: center;
 }
 
-#ookmtaxaez .gt_right {
+#zdoeudqnxo .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#ookmtaxaez .gt_font_normal {
+#zdoeudqnxo .gt_font_normal {
   font-weight: normal;
 }
 
-#ookmtaxaez .gt_font_bold {
+#zdoeudqnxo .gt_font_bold {
   font-weight: bold;
 }
 
-#ookmtaxaez .gt_font_italic {
+#zdoeudqnxo .gt_font_italic {
   font-style: italic;
 }
 
-#ookmtaxaez .gt_super {
+#zdoeudqnxo .gt_super {
   font-size: 65%;
 }
 
-#ookmtaxaez .gt_footnote_marks {
+#zdoeudqnxo .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#ookmtaxaez .gt_asterisk {
+#zdoeudqnxo .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#ookmtaxaez .gt_indent_1 {
+#zdoeudqnxo .gt_indent_1 {
   text-indent: 5px;
 }
 
-#ookmtaxaez .gt_indent_2 {
+#zdoeudqnxo .gt_indent_2 {
   text-indent: 10px;
 }
 
-#ookmtaxaez .gt_indent_3 {
+#zdoeudqnxo .gt_indent_3 {
   text-indent: 15px;
 }
 
-#ookmtaxaez .gt_indent_4 {
+#zdoeudqnxo .gt_indent_4 {
   text-indent: 20px;
 }
 
-#ookmtaxaez .gt_indent_5 {
+#zdoeudqnxo .gt_indent_5 {
   text-indent: 25px;
 }
 
-#ookmtaxaez .katex-display {
+#zdoeudqnxo .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#ookmtaxaez div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#zdoeudqnxo div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -833,15 +832,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>Failing to have two functional headlights and failing to stop at a stop sign appear to be the two most common traffic violations in Chicago, with over 100,000 more occurances than the third most common violation, which is failing to have two working tail lights. Four common violations all relate to registration: failure to display registration, no valid registration, no registration plates, and failure to display registration, this time for motorcyles and trailers. Some other common ones are driving on a suspended license and driving while using a cellphone.</p>
-<p>Last, we can add up the numbers of stops for each day of the month to see whether or not the California State Patrol tends to conduct more traffic stops at the beginning of the month, end of the month, or somewhere in the middle. Only 30 days were used, instead of 31, due to every month having at least 30 days aside from February.</p>
+<p>Failing to have two functional headlights and failing to stop at a stop sign appear to be the two most common traffic violations in Chicago, with over 100,000 more occurrences than the third most common violation, which is failing to have two working tail lights. Four common violations all relate to registration: failure to display registration, no valid registration, no registration plates, and failure to display registration, this time for motorcycles and trailers. Some other common ones are driving on a suspended license and driving while using a cellphone.</p>
+<p>Last, we can add up the numbers of stops for each day of the month to see whether or not the California State Patrol tends to conduct more traffic stops at the beginning of the month, end of the month, or somewhere in the middle. Only 30 days were used, instead of 31, due to every month having at least 30 days. February was excluded due to its odd nature of only having 28 days.</p>
 <div class="cell" data-output.var="date_table">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">EXTRACT</span>(<span class="dt">DAY</span> <span class="kw">FROM</span> <span class="dt">date</span>) <span class="kw">AS</span> <span class="dt">day</span>,</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">count</span>(<span class="op">*</span>) <span class="kw">AS</span> num_stops</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> ca_statewide_2023_01_26</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> <span class="dt">day</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="kw">HAVING</span> <span class="dt">day</span> <span class="op">&lt;=</span> <span class="dv">30</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span> <span class="dt">day</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> <span class="fu">EXTRACT</span>(<span class="dt">MONTH</span> <span class="kw">FROM</span> <span class="dt">date</span>) <span class="op">!=</span> <span class="dv">2</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> <span class="dt">day</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="kw">HAVING</span> <span class="dt">day</span> <span class="op">&lt;=</span> <span class="dv">30</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <details class="code-fold">
@@ -873,8 +872,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>There appears to be a slight tendency to conduct more traffic stops during the first few days of the month, with a steep decline during the last few days of the month. The light blue regression line indicates a slight inverse relationship between the day of the month and number of stops. While the differences are not huge, the small trend could have an explation. For example, if quotas happen to exist within an agency, officers may be inclined to complete these quotas as soon as possible, slowly easing off once they have reached it.</p>
-<p>Overall, data gathered from traffic stop reports has the potential to reveal extremely interesting trends. We were able to easily examine the demographic composition of Los Angeles traffic stops, comparing them to the actual demoagraphics of the city. We found that Hispanic individuals get stopped at a more frequent rate than other races, though they make up the majority of the overall population. In Chicago, the most common traffic violations were not having two working head lights and failing to stop at a stop sign, neither of which were very surprising. What was interesting was the violation that ranked fourth in frequency, driving with a suspended license. If almost 100,000 people were pulled over for not having a valid license, one can only imagine the number of people who get away with it and are driving every day. Finally, we discovered that, though small, there is some correlation between the day of the month and the frequency of traffic stops conducted. It was observed that it may be more likely to get pulled over during the first few days of the month compared to the end of the month, though the difference in frequency was not huge.</p>
+<p>There appears to be a slight tendency to conduct more traffic stops during the first few days of the month, with a steep decline during the last few days of the month, mostly the 30th. The light blue regression line indicates a slight inverse relationship between the day of the month and number of stops. While the differences are not huge, the small trend could have an explanation. For example, if quotas happen to exist within an agency, officers may be inclined to complete these quotas as soon as possible, slowly easing off once they have reached it.</p>
+<p>Overall, data gathered from traffic stop reports has the potential to reveal extremely interesting trends. We were able to easily examine the demographic composition of Los Angeles traffic stops, comparing them to the actual demographics of the city. We found that Hispanic individuals get stopped at a more frequent rate than other races, though they make up the majority of the overall population. In Chicago, the most common traffic violations were not having two working head lights and failing to stop at a stop sign, neither of which were very surprising. What was interesting was the violation that ranked fourth in frequency, driving with a suspended license. If almost 100,000 people were pulled over for not having a valid license, one can only imagine the number of people who get away with it and are driving every day. Finally, we discovered that, though small, there is some correlation between the day of the month and the frequency of traffic stops conducted. It was observed that it may be more likely to get pulled over during the first few days of the month compared to the end of the month, though the difference in frequency was not huge.</p>
 <p>Sources:</p>
 <p>The Los Angeles Census data can be found at: https://www.census.gov/quickfacts/fact/table/losangelescountycalifornia/RHI725223#qf-headnote-b</p>
 <p>The policing database is a compilation of the Standford Open Policing Project, found at https://openpolicing.stanford.edu, and published in Pierson et al.&nbsp;(2020).</p>
