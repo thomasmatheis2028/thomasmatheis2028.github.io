@@ -96,46 +96,6 @@ ggplot(Bdays.recent, aes(x = year, y = NumDays)) +
   ) + theme_minimal(base_family = "Palatino")
 ```
 
-## Plotting Observed Data vs Simulated Data
-
-```{r}
-# Create a data frame for observed vs. expected counts
-observed_counts <- c(26, 36, 12, 14)
-expected_counts <- rep(88 / 4, 4)
-quarters <- c("Q1", "Q2", "Q3", "Q4")
-
-data_plot <- data.frame(
-  Quarter = rep(quarters, 2),
-  Count = c(observed_counts, expected_counts),
-  Type = rep(c("Observed", "Expected"), each = 4)
-)
-```
-```{r, eval=FALSE}
-#Plot the bar char
-ggplot(data_plot, aes(x = Quarter, y = Count, fill = Type)) +
-  geom_bar(stat = "identity", position = "dodge") +
-  labs(title = "Observed vs. Expected Player Birth Distribution", 
-       x = "Birth Quarter", 
-       y = "Number of Players") +
-  scale_fill_manual(values=c("orange","skyblue"),
-                    labels=c("Expected","Observed")) +
-  theme_minimal(base_family = "Palatino")
-```
-
-##  
-
-```{r, echo=FALSE}
-#Plot the bar char
-ggplot(data_plot, aes(x = Quarter, y = Count, fill = Type)) +
-  geom_bar(stat = "identity", position = "dodge") +
-  labs(title = "Observed vs. Expected Player Birth Distribution", 
-       x = "Birth Quarter", 
-       y = "Number of Players") +
-  scale_fill_manual(values=c("orange","skyblue"),
-                    labels=c("Expected","Observed")) +
-  theme_minimal(base_family = "Palatino")
-```
-
 
 ## Analyzing Average Lag-Time Between Local and Non-Local Runners
 
@@ -345,19 +305,19 @@ ggplot(num_closed, aes(x = DateTime, y = closed)) +
            x = as.POSIXct("2025-04-22 9:00:00",
                           tz = "America/Los_Angeles"),
            y = 700,            
-           label = "Start of Senior \nRegistration", hjust = 0, size = 3.5, family = "Palatino") +
+           label = "Rising Senior \nRegistration", hjust = 0, size = 3.5, family = "Palatino") +
   geom_vline(xintercept = as.POSIXct("2025-04-23 08:00:00", tz = "America/Los_Angeles"), color = "red", linetype = "dashed") +
   annotate("text",
            x = as.POSIXct("2025-04-23 9:00:00",
                           tz = "America/Los_Angeles"),
            y = 700,            
-           label = "Start of Sophomore \nRegistration", hjust = 0, size = 3.5, family = "Palatino") +
+           label = "Rising Junior \nRegistration", hjust = 0, size = 3.5, family = "Palatino") +
   geom_vline(xintercept = as.POSIXct("2025-04-24 08:00:00", tz = "America/Los_Angeles"), color = "red", linetype = "dashed") +
   annotate("text",
            x = as.POSIXct("2025-04-24 9:00:00",
                           tz = "America/Los_Angeles"),
            y = 700,            
-           label = "Start of Freshmen \nRegistration", hjust = 0, size = 3.5, family = "Palatino") +
+           label = "Rising Sophomore \nRegistration", hjust = 0, size = 3.5, family = "Palatino") +
   scale_y_continuous(limits = c(0, 750),
                      breaks  = seq(0, 750, by = 100)) +
   scale_x_datetime(
