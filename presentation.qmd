@@ -75,7 +75,7 @@ ggplot(Bdays.recent, aes(x = year, y = NumDays)) +
   labs(
     x = "Year",
     y = "Day of the Year",
-    title = "Birthdays of Canadian NHL Players with Last Name Beginning with \"L\"",
+    title = "Birthdays of Canadian NHL Players",
     subtitle = "n = 88"
   ) + theme_minimal(base_family = "Palatino")
 ```
@@ -91,7 +91,7 @@ ggplot(Bdays.recent, aes(x = year, y = NumDays)) +
   labs(
     x = "Year",
     y = "Day of the Year",
-    title = "Birthdays of Canadian NHL Players with Last Name Beginning with \"L\"",
+    title = "Birthdays of Canadian NHL Players",
     subtitle = "n = 88"
   ) + theme_minimal(base_family = "Palatino")
 ```
@@ -121,8 +121,7 @@ mean_non_local <- mean(nonlocal$lag)
 
 ggplot(TMR.mini, aes(x=DMV, y=lag, fill=DMV)) +
   geom_boxplot() +
-  labs(title="Comparison of Lag Times by Runner Origin",
-       subtitle = "n = 20 local, n = 10 non-local",
+  labs(title="Comparison of Lag Times by Runner Origin"
        x="Local?",
        y="Lag (seconds)") +
   scale_fill_manual(values=c("orange","skyblue"),
@@ -136,7 +135,6 @@ ggplot(TMR.mini, aes(x=DMV, y=lag, fill=DMV)) +
 ggplot(TMR.mini, aes(x=DMV, y=lag, fill=DMV)) +
   geom_boxplot() +
   labs(title="Comparison of Lag Times by Runner Origin",
-       subtitle = "n = 20 local, n = 10 non-local",
        x="Local?",
        y="Lag (seconds)") +
   scale_fill_manual(values=c("orange","skyblue"),
@@ -151,7 +149,7 @@ ggplot(TMR.mini, aes(x=DMV, y=lag, fill=DMV)) +
 ppeada <- read_csv("/Users/tommy/Desktop/Intro to Stats/Intro to Stats/ppeada.csv")
 ppeada23 <- read_csv("/Users/tommy/Desktop/Intro to Stats/Intro to Stats/ppeada23.csv")
 ```
-```{r}
+```{r, eval=FALSE}
 ppeada1 <- ppeada |> 
   filter(sport != "Baseball", sport != "Football", sport != "Softball", sport != "Volleyball", sport != "Lacrosse")
 ppeada2 <- ppeada23 |> 
@@ -178,6 +176,11 @@ ggplot(ppeada2, aes(x = sport, y = expenses, fill = sex)) +
 ##  
 
 ```{r, echo=FALSE}
+ppeada1 <- ppeada |> 
+  filter(sport != "Baseball", sport != "Football", sport != "Softball", sport != "Volleyball", sport != "Lacrosse")
+ppeada2 <- ppeada23 |> 
+  filter(sport != "Baseball", sport != "Football", sport != "Softball", sport != "Volleyball", sport != "Lacrosse")
+
 ggplot(ppeada2, aes(x = sport, y = expenses, fill = sex)) +
   geom_bar(stat = "identity", position = "fill") +
   scale_fill_manual(

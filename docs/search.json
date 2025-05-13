@@ -60,7 +60,7 @@
     "href": "presentation.html#analyzing-relative-age-effect-for-canadian-nhl-players",
     "title": "How I Have Used Data Science",
     "section": "Analyzing Relative Age Effect for Canadian NHL Players",
-    "text": "Analyzing Relative Age Effect for Canadian NHL Players\n\n#Utilizing a given data-set \"Bdays.recent\"\n\nggplot(Bdays.recent, aes(x = year, y = NumDays)) +\n  geom_point(color = \"black\") +\n  geom_hline(yintercept = 182.5, color = \"red\", linetype = \"dashed\") +\n  labs(\n    x = \"Year\",\n    y = \"Day of the Year\",\n    title = \"Birthdays of Canadian NHL Players with Last Name Beginning with \\\"L\\\"\",\n    subtitle = \"n = 88\"\n  ) + theme_minimal(base_family = \"Palatino\")"
+    "text": "Analyzing Relative Age Effect for Canadian NHL Players\n\n#Utilizing a given data-set \"Bdays.recent\"\n\nggplot(Bdays.recent, aes(x = year, y = NumDays)) +\n  geom_point(color = \"black\") +\n  geom_hline(yintercept = 182.5, color = \"red\", linetype = \"dashed\") +\n  labs(\n    x = \"Year\",\n    y = \"Day of the Year\",\n    title = \"Birthdays of Canadian NHL Players\",\n    subtitle = \"n = 88\"\n  ) + theme_minimal(base_family = \"Palatino\")"
   },
   {
     "objectID": "presentation.html#plotting-observed-data-vs-simulated-data",
@@ -74,7 +74,7 @@
     "href": "presentation.html#analyzing-average-lag-time-between-local-and-non-local-runners",
     "title": "How I Have Used Data Science",
     "section": "Analyzing Average Lag-Time Between Local and Non-Local Runners",
-    "text": "Analyzing Average Lag-Time Between Local and Non-Local Runners\n\n#Utilizing a given data set \"TMR.mini\"\n\nggplot(TMR.mini, aes(x=DMV, y=lag, fill=DMV)) +\n  geom_boxplot() +\n  labs(title=\"Comparison of Lag Times by Runner Origin\",\n       subtitle = \"n = 20 local, n = 10 non-local\",\n       x=\"Local?\",\n       y=\"Lag (seconds)\") +\n  scale_fill_manual(values=c(\"orange\",\"skyblue\"),\n                    labels=c(\"Non-local\",\"Local\")) +\n  theme_minimal(base_family = \"Palatino\")"
+    "text": "Analyzing Average Lag-Time Between Local and Non-Local Runners\n\n#Utilizing a given data set \"TMR.mini\"\n\nggplot(TMR.mini, aes(x=DMV, y=lag, fill=DMV)) +\n  geom_boxplot() +\n  labs(title=\"Comparison of Lag Times by Runner Origin\"\n       x=\"Local?\",\n       y=\"Lag (seconds)\") +\n  scale_fill_manual(values=c(\"orange\",\"skyblue\"),\n                    labels=c(\"Non-local\",\"Local\")) +\n  theme_minimal(base_family = \"Palatino\")"
   },
   {
     "objectID": "presentation.html#pomona-pitzer-athletics-spending",
