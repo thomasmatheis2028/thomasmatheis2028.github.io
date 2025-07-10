@@ -80,7 +80,7 @@ ggplot(Bdays.recent, aes(x = year, y = NumDays)) +
   ) + theme_minimal(base_family = "Palatino")
 ```
 
-##  
+## 
 
 ```{r, echo=FALSE}
 #Utilizing a given data-set "Bdays.recent"
@@ -95,7 +95,6 @@ ggplot(Bdays.recent, aes(x = year, y = NumDays)) +
     subtitle = "n = 88"
   ) + theme_minimal(base_family = "Palatino")
 ```
-
 
 ## Analyzing Average Lag-Time Between Local and Non-Local Runners
 
@@ -129,7 +128,7 @@ ggplot(TMR.mini, aes(x=DMV, y=lag, fill=DMV)) +
   theme_minimal(base_family = "Palatino")
 ```
 
-##  
+## 
 
 ```{r, echo=FALSE}
 ggplot(TMR.mini, aes(x=DMV, y=lag, fill=DMV)) +
@@ -142,13 +141,13 @@ ggplot(TMR.mini, aes(x=DMV, y=lag, fill=DMV)) +
   theme_minimal(base_family = "Palatino")
 ```
 
-
 ## Pomona-Pitzer Athletics Spending
 
 ```{r, echo=FALSE}
 ppeada <- read_csv("/Users/tommy/Desktop/Intro to Stats/Intro to Stats/ppeada.csv")
 ppeada23 <- read_csv("/Users/tommy/Desktop/Intro to Stats/Intro to Stats/ppeada23.csv")
 ```
+
 ```{r, eval=FALSE}
 ppeada1 <- ppeada |> 
   filter(sport != "Baseball", sport != "Football", sport != "Softball", sport != "Volleyball", sport != "Lacrosse")
@@ -173,7 +172,7 @@ ggplot(ppeada2, aes(x = sport, y = expenses, fill = sex)) +
   theme_minimal(base_family = "Palatino")
 ```
 
-##  
+## 
 
 ```{r, echo=FALSE}
 ppeada1 <- ppeada |> 
@@ -198,7 +197,6 @@ ggplot(ppeada2, aes(x = sport, y = expenses, fill = sex)) +
   ) +
   theme_minimal(base_family = "Palatino")
 ```
-
 
 ## Pomona-Pitzer Athletics Spending
 
@@ -221,7 +219,7 @@ ggplot(ppeada1, aes(x = sport, y = expenses, fill = sex)) +
   theme_minimal(base_family = "Palatino")
 ```
 
-##  
+## 
 
 ```{r, echo=FALSE}
 ggplot(ppeada1, aes(x = sport, y = expenses, fill = sex)) +
@@ -241,7 +239,6 @@ ggplot(ppeada1, aes(x = sport, y = expenses, fill = sex)) +
   ) +
   theme_minimal(base_family = "Palatino")
 ```
-
 
 ## Fall 2025 Pre-Registration
 
@@ -255,7 +252,6 @@ num_closed <- fulldf |>
 start <- as.POSIXct("2025-04-22 08:00:00",
                     tz = "America/Los_Angeles")
 ```
-
 
 ```{r, eval=FALSE}
 #Using data collected from Hyperschedule every 15 minutes during registration
@@ -298,7 +294,7 @@ ggplot(num_closed, aes(x = DateTime, y = closed)) +
   theme(plot.title = element_text(size = 18))
 ```
 
-##  
+## 
 
 ```{r, echo=FALSE}
 ggplot(num_closed, aes(x = DateTime, y = closed)) +
@@ -338,7 +334,6 @@ ggplot(num_closed, aes(x = DateTime, y = closed)) +
   theme_minimal(base_family = "Palatino") +
   theme(plot.title = element_text(size = 18))
 ```
-
 
 ## Current Project: Scraping Swimcloud.com
 

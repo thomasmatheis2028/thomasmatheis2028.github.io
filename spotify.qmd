@@ -51,7 +51,7 @@ It can be seen that the "artistsName" and "trackName" variables both contain cha
 
 Now we can being working with the strings!
 
-One observation I made in the dataset was that many songs have a feature artist, and therefore have "(feat. 'artist name')" in the title. We can clean the dataset by removing the features from the track names! 
+One observation I made in the dataset was that many songs have a feature artist, and therefore have "(feat. 'artist name')" in the title. We can clean the dataset by removing the features from the track names!
 
 First, let's look at some examples of what this looks like, using str_detect:
 
@@ -84,6 +84,7 @@ feature_example1 <- spotify_data_nofeat |>
   select(artistName, trackName)   #Selecting the same example used before
 head(feature_example1,5)
 ```
+
 Boom! No features! Let's look at some rows in the data and see if it looks better:
 
 ```{r}
@@ -114,7 +115,7 @@ feature_example2 <- spotify_data_nofeat |>
 feature_example2[41:47,]        #Same example as before
 ```
 
-This looks much cleaner now. 
+This looks much cleaner now.
 
 Now that we have a clean data frame containing the artist name, song name, date, and amount of time listened too, we can make some graphs!
 
@@ -145,6 +146,7 @@ ggplot(msPlayed_artist, aes(x = fct_reorder(artistName, total_msPlayed), y = tot
   coord_flip() +
   theme_minimal(base_family = "Palatino")
 ```
+
 Well that's odd, it looks like my order doesn't match with what Spotify told me. Twenty One Pilots has significantly more total listening time than Dominic Fike, yet Dominic Fike appears first on the official list.
 
 What if we look at total songs played instead of listening time:
@@ -178,6 +180,7 @@ ggplot(total_songs_artist, aes(x = fct_reorder(artistName, total_songs), y = tot
 Well, at least this tells us that something isn't quite right with how Spotify determines a user's top artists. Our top 5 artists measured by total songs played is in the same order as when we measure by total listening time, however this time Twenty One Pilots and Dominic Fike are much closer. This tells me that Drake for sure belonged on my Spotify Wrapped, as he ranked 3rd in total songs played and total listening time. I also confirmed my suspicion that I listened to more Twenty One Pilots than any other artist, especially when looking at listening time. One reason for the discrepancy could be the time frame that Spotify uses. My data begins in November of 2023 and ends in November of 2024. It could be possible that Spotify uses data beginning on January 1st of each year. We can use only the songs from January 1st and onwards to see if it significantly changes our results.
 
 Repeating the process for listening time:
+
 ```{r}
 #| code-fold: true
 #| code-summary: "Show the code"
@@ -202,6 +205,7 @@ ggplot(spotify_2024_only1, aes(x = fct_reorder(artistName, total_msPlayed), y = 
 ```
 
 Repeating the process for total songs played:
+
 ```{r}
 #| code-fold: true
 #| code-summary: "Show the code"
@@ -228,8 +232,6 @@ ggplot(spotify_2024_only2, aes(x = fct_reorder(artistName, total_songs), y = tot
 This data is closer to the official Spotify Wrapped, though still not quite right. When looking at total listening time for 2024, Don Toliver pushes his way up to third on the list, which is where he was officialy ranked. However, when looking at total songs played for 2024, the only time Dominic Fike has outranked Twenty One Pilots, Don Toliver falls places fifth by almost 500 songs.
 
 Overall, Spotify Wrapped does a good-enough job in the sense that it correctly identified my top artists artists for both total listening time and total songs played. However, the order that it ranked my top five artsits in doesn't seem to quite line up with my streaming history data. However, as we found above, the time frame of the data can make a big difference in the rankings. My data contained history up until November 4th, and it is likely that Spotify Wrapped, which released on December 4th, utilized that extra month of streaming history that was not included in the files I received. This extra month of missing data could explain some of the differences in rankings I found.
-
-
 
 To view the data:
 
