@@ -46,13 +46,16 @@ website:
         menu: 
          - href: policing.html
            text: Analyzing United States Policing Data
-      - href: presentation.html
-        text: Presentation
+        
+      - text: Apps
+        menu:
+         - href: taper.html
+           text: Pomona-Pitzer Swimming Taper Prediction App
 
 format:
   html:
     theme:
-      - solar
+      - superhero
       - brand
     css: styles.css
     toc: true
