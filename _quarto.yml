@@ -9,7 +9,7 @@ website:
       - href: index.html
         text: Home
         
-      - text: Data Vizualization
+      - text: Data Visualization
         menu:
          - href: starbucks.html
            text: Starbucks Beverages
@@ -56,7 +56,6 @@ format:
   html:
     theme:
       - superhero
-      - brand
     css: styles.css
     toc: true
     page-layout: full
